@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Pin_Generator">
+
+   <Button
+       android:layout_width="match_parent"
+       android:id="@+id/open"
+       android:layout_height="wrap_content"
+       android:layout_marginHorizontal="20dp"
+       style="@style/Widget.MaterialComponents.Button"
+       android:backgroundTint="#009387"
+
+       android:text="Open"
+       android:textSize="24dp"
+/>
+</FrameLayout>

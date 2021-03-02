@@ -3,12 +3,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Pin_Fragment">
+    android:background="#F3B807"
+    tools:context=".ui.Pin_Generator">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="150dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Enter your Pin"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="50dp"
+        android:padding="10dp"
+        >
+        <EditText
+            android:id="@+id/first_Number"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:background="#EDE1E1"
+            android:maxLength="1"
+            android:gravity="center"
+            android:focusable="true"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:password="true"
+            android:layout_marginLeft="10dp"
+            />
+        <EditText
+            android:id="@+id/second_Number"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:background="#EDE1E1"
+            android:maxLength="1"
+            android:gravity="center"
+            android:focusable="true"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:password="true"
+            android:layout_marginLeft="10dp"
+            />
+        <EditText
+            android:id="@+id/third_Number"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:background="#EDE1E1"
+            android:maxLength="1"
+            android:gravity="center"
+            android:focusable="true"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:password="true"
+            android:layout_marginLeft="10dp"
 
+
+            />
+        <EditText
+            android:id="@+id/fourth_Number"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:maxLength="1"
+            android:gravity="center"
+            android:focusable="true"
+            android:textSize="30dp"
+            android:background="#EDE1E1"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:password="true"
+            android:layout_marginLeft="10dp"
+
+            />
+    </LinearLayout>
 </FrameLayout>

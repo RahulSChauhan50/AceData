@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F3B807"
     tools:context=".ui.Pin_Generator">
 
    <Button
@@ -10,10 +11,188 @@
        android:id="@+id/open"
        android:layout_height="wrap_content"
        android:layout_marginHorizontal="20dp"
+       android:layout_marginTop="50dp"
        style="@style/Widget.MaterialComponents.Button"
-       android:backgroundTint="#009387"
+       android:backgroundTint="#000"
 
        android:text="Open"
        android:textSize="24dp"
 />
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginTop="200dp"
+       android:layout_marginStart="50dp"
+       android:padding="10dp"
+       >
+      <EditText
+          android:id="@+id/first_Number"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
+          android:layout_weight="1"
+          android:inputType="number"
+          android:background="#EDE1E1"
+          android:maxLength="1"
+          android:gravity="center"
+          android:focusable="true"
+          android:textSize="30dp"
+          android:textStyle="bold"
+          android:textColor="#000"
+          android:password="true"
+          android:layout_marginLeft="10dp"
+          />
+      <EditText
+          android:id="@+id/second_Number"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
+          android:layout_weight="1"
+          android:inputType="number"
+          android:background="#EDE1E1"
+          android:maxLength="1"
+          android:gravity="center"
+          android:focusable="true"
+          android:textSize="30dp"
+          android:textStyle="bold"
+          android:textColor="#000"
+          android:password="true"
+          android:layout_marginLeft="10dp"
+          />
+      <EditText
+          android:id="@+id/third_Number"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
+          android:layout_weight="1"
+          android:inputType="number"
+          android:background="#EDE1E1"
+          android:maxLength="1"
+          android:gravity="center"
+          android:focusable="true"
+          android:textSize="30dp"
+          android:textStyle="bold"
+          android:textColor="#000"
+          android:password="true"
+          android:layout_marginLeft="10dp"
+
+
+          />
+      <EditText
+          android:id="@+id/fourth_Number"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
+          android:layout_weight="1"
+          android:inputType="number"
+          android:maxLength="1"
+          android:gravity="center"
+          android:focusable="true"
+          android:textSize="30dp"
+          android:background="#EDE1E1"
+          android:textStyle="bold"
+          android:textColor="#000"
+          android:password="true"
+          android:layout_marginLeft="10dp"
+
+          />
+   </LinearLayout>
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginTop="400dp"
+       android:layout_marginStart="50dp"
+       android:padding="10dp"
+       >
+      <EditText
+          android:id="@+id/first_C_Number"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
+          android:layout_weight="1"
+          android:inputType="number"
+          android:background="#EDE1E1"
+          android:maxLength="1"
+          android:gravity="center"
+          android:focusable="true"
+          android:textSize="30dp"
+          android:textStyle="bold"
+          android:textColor="#000"
+          android:password="true"
+          android:layout_marginLeft="10dp"
+          />
+      <EditText
+          android:id="@+id/second_C_Number"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
+          android:layout_weight="1"
+          android:inputType="number"
+          android:background="#EDE1E1"
+          android:maxLength="1"
+          android:gravity="center"
+          android:focusable="true"
+          android:textSize="30dp"
+          android:textStyle="bold"
+          android:textColor="#000"
+          android:password="true"
+          android:layout_marginLeft="10dp"
+          />
+      <EditText
+          android:id="@+id/third_C_Number"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
+          android:layout_weight="1"
+          android:inputType="number"
+          android:background="#EDE1E1"
+          android:maxLength="1"
+          android:gravity="center"
+          android:focusable="true"
+          android:textSize="30dp"
+          android:textStyle="bold"
+          android:textColor="#000"
+          android:password="true"
+          android:layout_marginLeft="10dp"
+
+
+          />
+      <EditText
+          android:id="@+id/fourth_C_Number"
+          android:layout_width="60dp"
+          android:layout_height="60dp"
+          android:layout_weight="1"
+          android:inputType="number"
+          android:maxLength="1"
+          android:gravity="center"
+          android:focusable="true"
+          android:textSize="30dp"
+          android:background="#EDE1E1"
+          android:textStyle="bold"
+          android:textColor="#000"
+          android:password="true"
+          android:layout_marginLeft="10dp"
+
+          />
+   </LinearLayout>
+
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="150dp"
+       android:layout_marginStart="70dp"
+       android:text="Enter your pin !"
+       android:textColor="@color/black"
+       android:textSize="30dp"
+       android:textStyle="bold" />
+   <TextView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="350dp"
+       android:layout_marginStart="70dp"
+       android:text="Confirm your Pin"
+       android:textColor="@color/black"
+       android:textSize="30dp"
+       android:textStyle="bold" />
+   <ProgressBar
+       android:layout_width="60dp"
+       android:layout_height="60dp"
+       android:layout_gravity="center"
+       android:visibility="invisible"
+       android:id="@+id/progressBar"></ProgressBar>
 </FrameLayout>

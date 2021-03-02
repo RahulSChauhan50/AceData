@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.AceData.ActionBar" parent="Theme.MaterialComponents.DayNight">
+    <style name="Theme.AceData.ActionBar" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
     </style>

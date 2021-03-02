@@ -8,6 +8,7 @@ import android.Manifest;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
          fragmentManager = getFragmentManager();
 
-//        Intent intent=new Intent(this,AppActivity.class);
-//        startActivity(intent);
 //        btn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -55,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
         Login_Fragment login_fragment = new Login_Fragment();
         trans.replace(R.id.main_Frame,login_fragment);
         trans.commit();
+
+        Intent intent=new Intent(this,AppActivity.class);
+        startActivity(intent);
 
     }
     public void Add_Login_Fragment(View view){

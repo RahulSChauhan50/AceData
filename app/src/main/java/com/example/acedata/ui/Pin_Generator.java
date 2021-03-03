@@ -48,7 +48,7 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
         open_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).Add_Pin_Fragment(view);
+                //((MainActivity)getActivity()).Add_Pin_Fragment(view);
             }
         });
         initializeView(myview);
@@ -233,7 +233,7 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
                                     else{
                                         progressBar.setVisibility(View.INVISIBLE);
                                         //Call method of mainActivity by casting
-                                        ((MainActivity)getActivity()).Add_Pin_Fragment(view);
+                                       // ((MainActivity)getActivity()).Add_Pin_Fragment(view);
                                     }
                                 }
                             };

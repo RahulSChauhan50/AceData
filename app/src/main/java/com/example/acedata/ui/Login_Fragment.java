@@ -25,7 +25,7 @@ public class Login_Fragment extends Fragment {
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).Add_PinGenerator_Fragment(view);
+               // ((MainActivity)getActivity()).Add_PinGenerator_Fragment(view);
             }
         });
        return myView;

@@ -10,4 +10,17 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="editTextPhone">Enter your Phone Number</string>
+    <string name="editTextPersonname">Enter your Name</string>
+    <string name="editTextAddress">Enter your Address</string>
+    <string name="editAdhar">Enter Adhar</string>
+    <string name="buttonimage1">Select image 1</string>
+    <string name="buttonimage2">Select image 2</string>
+    <string name="buttonimage3">Select image 3</string>
+    <string name="buttonimage4">Select image 4</string>
+    <string name="textViewImage1">Image1.jpg</string>
+    <string name="textViewImage2">Image2.jpg</string>
+    <string name="textViewImage3">Image3.jpg</string>
+    <string name="textViewImage4">Image4.jpg</string>
+
 </resources>

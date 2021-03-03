@@ -24,7 +24,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MainActivity extends AppCompatActivity {
     Button btn;
-    FragmentManager fragmentManager;
     final int ALL_PERMISSION=1;
     String[] permissions={Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -36,12 +35,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // askPermisson_function();
-        //askPermission_function();
 
-         fragmentManager = getFragmentManager();
 
-        Intent intent=new Intent(,AppActivity.class);
+       //askPermisson_function();
+
+//        if (savedInstanceState == null) {
+//            getSupportFragmentManager().beginTransaction()
+//                    .setReorderingAllowed(true)
+//                    .add(R.id.fragment_container_mainactivity, Login_Fragment.class, null)
+//                    .commit();
+//        }
+
+
+
+        Intent intent=new Intent(MainActivity.this,AppActivity.class);
         startActivity(intent);
 //        btn.setOnClickListener(new View.OnClickListener() {
 //            @Override

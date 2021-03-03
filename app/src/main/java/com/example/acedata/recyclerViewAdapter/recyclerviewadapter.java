@@ -10,16 +10,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.acedata.FormData;
 import com.example.acedata.R;
+import com.example.acedata.ui.formScreens.Form1Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapter.recyclerviewHolder>{
+
 
     private List<FormData> itemData;
     private Context context;
@@ -46,6 +51,11 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
             @Override
             public void onClick(View view) {
                 Toast.makeText(context,itemData.get(position).getName()+"\n"+itemData.get(position).getAdhar(),Toast.LENGTH_SHORT).show();
+                FragmentManager fragmentManager=((AppCompatActivity)context).getSupportFragmentManager();
+                FragmentTransaction tr=fragmentManager.beginTransaction();
+                tr.setReorderingAllowed(true);
+                tr.replace(R.id.fragment_container_appactivity, Form1Fragment.class,null);
+                tr.commit();
             }
         });
 

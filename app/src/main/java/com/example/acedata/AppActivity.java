@@ -8,38 +8,43 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.acedata.ui.datalist.DatalistFragment;
 import com.example.acedata.ui.formScreens.Form1Fragment;
 import com.example.acedata.ui.formScreens.Form2Fragment;
 import com.example.acedata.ui.formScreens.Form3Fragment;
 
 public class AppActivity extends AppCompatActivity {
-     FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app);
-        fragmentManager = getFragmentManager();
-        FragmentTransaction transact = fragmentManager.beginTransaction();
-        Form1Fragment form1 = new Form1Fragment();
-        transact.replace(R.id.App_activity,form1);
-        transact.commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.fragment_container_appactivity, DatalistFragment.class, null)
+                    .addToBackStack("base")
+                    .commit();
+        }
     }
-    public void Add_Form1(View view){
-        FragmentTransaction transact = fragmentManager.beginTransaction();
-        Form1Fragment form1 = new Form1Fragment();
-        transact.replace(R.id.App_activity,form1);
-        transact.commit();
+
+    public void Add_Form1(View view) {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragment_container_appactivity, Form1Fragment.class, null)
+                .commit();
     }
-    public void Add_Form2(View view){
-        FragmentTransaction transact = fragmentManager.beginTransaction();
-        Form2Fragment form2 = new Form2Fragment();
-        transact.replace(R.id.App_activity,form2);
-        transact.commit();
+
+    public void Add_Form2(View view) {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragment_container_appactivity, Form2Fragment.class, null)
+                .commit();
     }
-    public void Add_Form3(View view){
-        FragmentTransaction transact = fragmentManager.beginTransaction();
-        Form3Fragment form3 = new Form3Fragment();
-        transact.replace(R.id.App_activity,form3);
-        transact.commit();
+
+    public void Add_Form3(View view) {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragment_container_appactivity, Form3Fragment.class, null)
+                .commit();
     }
 }

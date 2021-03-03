@@ -21,10 +21,10 @@ import java.util.List;
 
 public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapter.recyclerviewHolder>{
 
-    private List<FormData> itemData=new ArrayList<>();
+    private List<FormData> itemData;
     private Context context;
 
-    public recyclerviewadapter(ArrayList<FormData> itemData, Context context) {
+    public recyclerviewadapter(List<FormData> itemData, Context context) {
         this.itemData= itemData;
         this.context = context;
         notifyDataSetChanged();
@@ -41,7 +41,7 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
     @Override
     public void onBindViewHolder(@NonNull recyclerviewHolder holder, final int position) {
         holder.name.setText(itemData.get(position).getName());
-        holder.number.setText(itemData.get(position).getAdhar());
+        holder.adhar.setText(itemData.get(position).getAdhar());
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,17 +57,15 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
     }
 
     public class recyclerviewHolder extends RecyclerView.ViewHolder{
-        TextView name,number;
-        ImageView imageView;
+        TextView name,adhar;
         ConstraintLayout parent;
 
         public recyclerviewHolder(@NonNull View itemView) {
             super(itemView);
 
-//            name=itemView.findViewById(R.id.Name);
-//            number=itemView.findViewById(R.id.Number);
-//            imageView=itemView.findViewById(R.id.imageView2);
-//            parent=itemView.findViewById(R.id.parent);
+            name=itemView.findViewById(R.id.list_textviewnamevalue);
+            adhar=itemView.findViewById(R.id.list_textviewadharvalue);
+            parent=itemView.findViewById(R.id.itemparent);
 
         }
     }

@@ -1,5 +1,6 @@
 package com.example.acedata.ui.datalist;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,12 +11,17 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.acedata.FormData;
+import com.example.acedata.MainActivity;
 import com.example.acedata.R;
 import com.example.acedata.network.RetrofitClientInstance;
 import com.example.acedata.network.UploadReceiptService;
+import com.example.acedata.recyclerViewAdapter.recyclerviewadapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,12 +31,13 @@ import retrofit2.Callback;
 public class DatalistFragment extends Fragment {
 
     ProgressBar progressBar;
-
+    RecyclerView recyclerView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View fragmentView=inflater.inflate(R.layout.fragment_datalist,container,false);
         progressBar=fragmentView.findViewById(R.id.progressBar2);
+        recyclerView=fragmentView.findViewById(R.id.recyclerview);
         return fragmentView;
     }
 
@@ -58,6 +65,9 @@ public class DatalistFragment extends Fragment {
                     Log.d("Content",content);
 
                 }
+                recyclerviewadapter adapter = new recyclerviewadapter(posts, getContext());
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
 
             @Override

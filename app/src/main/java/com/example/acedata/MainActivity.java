@@ -37,11 +37,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
        // askPermisson_function();
-        askPermission_function();
+        //askPermission_function();
 
          fragmentManager = getFragmentManager();
 
-        Intent intent=new Intent(this,AppActivity.class);
+        Intent intent=new Intent(,AppActivity.class);
         startActivity(intent);
 //        btn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -61,33 +61,33 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if(requestCode==ALL_PERMISSION){
-            Log.d("permission",String.valueOf(grantResults[0])+String.valueOf(grantResults[1])+String.valueOf(grantResults[2])+String.valueOf(grantResults[3]));
-            if (grantResults[0] != PackageManager.PERMISSION_GRANTED || grantResults[1] != PackageManager.PERMISSION_GRANTED
-            || grantResults[2] != PackageManager.PERMISSION_GRANTED || grantResults[3] != PackageManager.PERMISSION_GRANTED) {
-
-                new MaterialAlertDialogBuilder(MainActivity.this)
-                        .setTitle("Permission Required")
-                        .setMessage("App needs to access CAMERA, GPS and STORAGE permissions in order to work properly.")
-                        .setPositiveButton("GOT IT", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                askPermission_function();
-                            }
-                        })
-                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(MainActivity.this,"Permission Not Granted",Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .show();
-            }
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//
+//        if(requestCode==ALL_PERMISSION){
+//            Log.d("permission",String.valueOf(grantResults[0])+String.valueOf(grantResults[1])+String.valueOf(grantResults[2])+String.valueOf(grantResults[3]));
+//            if (grantResults[0] != PackageManager.PERMISSION_GRANTED || grantResults[1] != PackageManager.PERMISSION_GRANTED
+//            || grantResults[2] != PackageManager.PERMISSION_GRANTED || grantResults[3] != PackageManager.PERMISSION_GRANTED) {
+//
+//                new MaterialAlertDialogBuilder(MainActivity.this)
+//                        .setTitle("Permission Required")
+//                        .setMessage("App needs to access CAMERA, GPS and STORAGE permissions in order to work properly.")
+//                        .setPositiveButton("GOT IT", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                askPermission_function();
+//                            }
+//                        })
+//                        .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//                                Toast.makeText(MainActivity.this,"Permission Not Granted",Toast.LENGTH_SHORT).show();
+//                            }
+//                        })
+//                        .show();
+//            }
+//        }
+//    }
 //    public void Add_Login_Fragment(View view){
 //        FragmentTransaction trans= fragmentManager.beginTransaction();
 //        Login_Fragment login_fragment = new Login_Fragment();

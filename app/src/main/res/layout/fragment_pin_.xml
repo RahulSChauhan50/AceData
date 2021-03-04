@@ -1,95 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F3B807"
+    android:background="@color/purple_700"
     tools:context=".ui.Pin_Generator">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="150dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Enter your Pin"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="200dp"
-        android:layout_marginStart="50dp"
-        android:padding="10dp"
-        >
-        <EditText
-            android:id="@+id/first_Number"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:inputType="number"
-            android:background="#EDE1E1"
-            android:maxLength="1"
-            android:gravity="center"
-            android:focusable="true"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:background="@drawable/round_corner_pin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:fontFamily="@font/audiowide"
+            android:text="Enter your Pin"
+            android:textColor="@color/black"
             android:textSize="30dp"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:password="true"
-            android:layout_marginLeft="10dp"
-            />
-        <EditText
-            android:id="@+id/second_Number"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:inputType="number"
-            android:background="#EDE1E1"
-            android:maxLength="1"
-            android:gravity="center"
-            android:focusable="true"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:password="true"
-            android:layout_marginLeft="10dp"
-            />
-        <EditText
-            android:id="@+id/third_Number"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:inputType="number"
-            android:background="#EDE1E1"
-            android:maxLength="1"
-            android:gravity="center"
-            android:focusable="true"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:password="true"
-            android:layout_marginLeft="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.419"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.405"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <EditText
+                android:id="@+id/first_Number"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/box"
+                android:focusable="true"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:hint="_"
+                android:textColorHint="@color/black"
+                android:password="true"
+                android:textColor="#000"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/second_Number"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/box"
+                android:focusable="true"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:hint="_"
+                android:textColorHint="@color/black"
+                android:password="true"
+                android:textColor="#000"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/third_Number"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/box"
+                android:focusable="true"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="1"
+                android:hint="_"
+                android:textColorHint="@color/black"
+                android:password="true"
+                android:textColor="#000"
+                android:textSize="30dp"
+                android:textStyle="bold"
 
 
-            />
-        <EditText
-            android:id="@+id/fourth_Number"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:inputType="number"
-            android:maxLength="1"
-            android:gravity="center"
-            android:focusable="true"
-            android:textSize="30dp"
-            android:background="#EDE1E1"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:password="true"
-            android:layout_marginLeft="10dp"
+                />
 
-            />
-    </LinearLayout>
-</FrameLayout>
+            <EditText
+                android:id="@+id/fourth_Number"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@drawable/box"
+                android:focusable="true"
+                android:gravity="center"
+                android:hint="_"
+                android:textColorHint="@color/black"
+                android:inputType="number"
+                android:maxLength="1"
+                android:password="true"
+                android:textColor="#000"
+                android:textSize="30dp"
+                android:textStyle="bold"
+
+                />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ProgressBar
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/progress_circular"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+         android:visibility="invisible"></ProgressBar>
+</androidx.constraintlayout.widget.ConstraintLayout>

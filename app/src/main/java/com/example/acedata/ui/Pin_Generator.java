@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.acedata.MainActivity;
 import com.example.acedata.R;
 
 import java.util.Timer;
@@ -23,7 +25,7 @@ import java.util.Timer;
 
 public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyListener,View.OnFocusChangeListener {
     Button open_btn;
-    Runnable runnable;
+    LinearLayout linearLayout;
     View view;
     private EditText et_digit1, et_digit2, et_digit3, et_digit4;//In this et_digit1 is Most significant digit and et_digit4 is least significant digit
     private EditText et_digit5, et_digit6, et_digit7, et_digit8;
@@ -42,12 +44,12 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
         // Inflate the layout for this fragment
         View myview = inflater.inflate(R.layout.fragment_pin__generator, container, false);
         open_btn = myview.findViewById(R.id.open);
-        progressBar= myview.findViewById(R.id.progressBar);
+        linearLayout = myview.findViewById(R.id.confirm_pin_layout);
         timer = new Timer();
         open_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //((MainActivity)getActivity()).Add_Pin_Fragment(view);
+                ((MainActivity)getActivity()).Add_Pin_Fragment(view);
             }
         });
         initializeView(myview);
@@ -181,6 +183,7 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
                     code[3]= et_digit4.getText().toString().charAt(0);
                     if(pin.length()>=4){
                         Toast.makeText(getActivity(), pin, Toast.LENGTH_SHORT).show();
+                        linearLayout.setVisibility(View.VISIBLE);
                         temp=pin;
                         pin=" ";
                     }
@@ -220,23 +223,7 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
                         if(temp.equals(pin2)){
                             Toast.makeText(getActivity(), "Pin Generated SuccessFully", Toast.LENGTH_SHORT).show();
                             // Add Runnable and handler to start the next screen and set Progressbar
-                            final Handler mHandler = new Handler();
-                            runnable = new Runnable() {
-                                @Override
-                                public void run() {
-                                    progressBar.setVisibility(View.VISIBLE);
-                                    count-=1000;
-                                    if(count>0){
-                                        mHandler.postDelayed(this,1000);
-                                    }
-                                    else{
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                        //Call method of mainActivity by casting
-                                       // ((MainActivity)getActivity()).Add_Pin_Fragment(view);
-                                    }
-                                }
-                            };
-                            mHandler.postDelayed(runnable,1000);
+
                         }
                         else{
                             Toast.makeText(getActivity(), "Entered Pin is not Matched", Toast.LENGTH_SHORT).show();

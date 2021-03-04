@@ -2,13 +2,16 @@ package com.example.acedata.ui;
 
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,31 +21,31 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.acedata.AppActivity;
 import com.example.acedata.R;
 import com.example.acedata.ui.datalist.DatalistFragment;
 
 public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyListener,View.OnFocusChangeListener {
 
     Button open_btn;
-    int count = 5000;
-    ProgressBar progressBar;
-    Runnable runnable;
     private EditText et_digit1, et_digit2, et_digit3, et_digit4;//In this et_digit1 is Most significant digit and et_digit4 is least significant digit
     private int whoHasFocus;
     char[] code = new char[4];//Store the digits in charArray.
-    String pin = " ";
+    String pin = "";
+    int sharedpin;
+    SharedPreferences sharedPreferences;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View myview = inflater.inflate(R.layout.fragment_pin__generator, container, false);
-        open_btn = myview.findViewById(R.id.open);
-        progressBar = myview.findViewById(R.id.progress_circular);
         // Inflate the layout for this fragment
         View myView= inflater.inflate(R.layout.fragment_pin_, container, false);
+        open_btn = myView.findViewById(R.id.open);
 
         initializeView(myView);
         et_digit1.requestFocus();//Left digit gets focus after adding of fragment in Container
+
+        sharedPreferences=getActivity().getSharedPreferences("login_data", Context.MODE_PRIVATE);
         return myView;
     }
     private void initializeView(View view)
@@ -113,7 +116,8 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
         {
             case 1:
                 if(!et_digit1.getText().toString().isEmpty())
-                {    pin+=et_digit1.getText().toString().charAt(0);
+                {   pin="";
+                    pin+=et_digit1.getText().toString().charAt(0);
                     code[0]= et_digit1.getText().toString().charAt(0);
                     et_digit2.requestFocus();
                 }
@@ -140,8 +144,22 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
                 {   pin+=et_digit4.getText().toString().charAt(0);
                     code[3]= et_digit4.getText().toString().charAt(0);
                     if(pin.length()>=4){
-                        Toast.makeText(getActivity(), pin, Toast.LENGTH_SHORT).show();
-                        pin=" ";
+                        sharedpin=sharedPreferences.getInt("Pinvalue",-1);
+                        if(sharedpin!=-1){
+                            Log.d("pin",pin);
+                            if(sharedpin==Integer.parseInt(pin.trim())){
+                                pin="";
+                                Intent intent=new Intent(getContext(), AppActivity.class);
+                                startActivity(intent);
+                            }else {
+                                Toast.makeText(getActivity(),"Pin doesn't match!",Toast.LENGTH_SHORT).show();
+                            }
+
+                        }
+                        else {
+                            Toast.makeText(getActivity(),"Wrong Pin",Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
 

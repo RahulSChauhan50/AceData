@@ -1,10 +1,12 @@
 package com.example.acedata.ui;
 
 import androidx.fragment.app.Fragment;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -14,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.acedata.MainActivity;
@@ -24,20 +25,20 @@ import java.util.Timer;
 
 
 public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyListener,View.OnFocusChangeListener {
+
     Button open_btn;
     LinearLayout linearLayout;
-    View view;
+    SharedPreferences sharedPreferences;
     private EditText et_digit1, et_digit2, et_digit3, et_digit4;//In this et_digit1 is Most significant digit and et_digit4 is least significant digit
     private EditText et_digit5, et_digit6, et_digit7, et_digit8;
     private int whoHasFocus;
     char[] code = new char[4];//Store the digits in charArray.
     char[] code2 = new char[4];//Store the confirm pin digits in charArray.
-    String pin = " ";
-    String pin2 = " ";
-    String temp;
-    ProgressBar progressBar;
-    int count=5000;
+    String pin = "";
+    String pin2 = "";
     Timer timer;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,11 +46,26 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
         View myview = inflater.inflate(R.layout.fragment_pin__generator, container, false);
         open_btn = myview.findViewById(R.id.open);
         linearLayout = myview.findViewById(R.id.confirm_pin_layout);
+        sharedPreferences=getActivity().getSharedPreferences("login_data", Context.MODE_PRIVATE);
         timer = new Timer();
         open_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).Add_Pin_Fragment(view);
+                if(!(pin.trim().equals("")) && !(pin2.trim().equals(""))){
+                    if(pin.trim().equals(pin2.trim())){
+                        SharedPreferences.Editor ed=sharedPreferences.edit();
+                        ed.putInt("Pinvalue",Integer.parseInt(pin.trim()));
+                        ed.commit();
+                        ((MainActivity)getActivity()).Add_Pin_Fragment(view);
+                    }
+                    else{
+                        Toast.makeText(getActivity(),"Pin doesn't match!",Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else {
+                    Toast.makeText(getActivity(),"Enter 4 digit pin!",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         initializeView(myview);
@@ -155,7 +171,8 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
         {
             case 1:
                 if(!et_digit1.getText().toString().isEmpty())
-                {    pin+=et_digit1.getText().toString().charAt(0);
+                {  pin="";
+                    pin+=et_digit1.getText().toString().charAt(0);
                     code[0]= et_digit1.getText().toString().charAt(0);
                     et_digit2.requestFocus();
                 }
@@ -184,15 +201,14 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
                     if(pin.length()>=4){
                         Toast.makeText(getActivity(), pin, Toast.LENGTH_SHORT).show();
                         linearLayout.setVisibility(View.VISIBLE);
-                        temp=pin;
-                        pin=" ";
                     }
 
 
                 }
             case 5:
                 if(!et_digit5.getText().toString().isEmpty())
-                {    pin2+=et_digit5.getText().toString().charAt(0);
+                {   pin2="";
+                    pin2+=et_digit5.getText().toString().charAt(0);
                     code2[0]= et_digit5.getText().toString().charAt(0);
                     et_digit6.requestFocus();
                 }
@@ -220,15 +236,12 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
                     code2[3]= et_digit8.getText().toString().charAt(0);
                     if(pin2.length()>=4){
                         Toast.makeText(getActivity(), pin2, Toast.LENGTH_SHORT).show();
-                        if(temp.equals(pin2)){
+                        if(pin.trim().equals(pin2.trim())){
                             Toast.makeText(getActivity(), "Pin Generated SuccessFully", Toast.LENGTH_SHORT).show();
-                            // Add Runnable and handler to start the next screen and set Progressbar
-
                         }
                         else{
                             Toast.makeText(getActivity(), "Entered Pin is not Matched", Toast.LENGTH_SHORT).show();
                         }
-                        pin2=" ";
                     }
 
 

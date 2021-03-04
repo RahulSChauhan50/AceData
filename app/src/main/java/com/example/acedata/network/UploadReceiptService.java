@@ -8,6 +8,8 @@ import java.util.ListIterator;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
@@ -31,5 +33,12 @@ public interface UploadReceiptService{
     @GET("/owner/")
     Call<List<FormData>> getDataList(
             @Header("Authorization") String Token
+    );
+
+    @FormUrlEncoded
+    @POST("/api/v1/rest-auth/login/")
+    Call<FormData> signin(
+            @Field("username") String username,
+            @Field ("password") String password
     );
 }

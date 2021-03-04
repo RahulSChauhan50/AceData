@@ -28,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
     Button btn;
     SharedPreferences sharedPreferences;
     String Token;
-    final int ALL_PERMISSION=1;
-    String[] permissions={Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    int pin;
+    final int ALL_PERMISSION = 1;
+    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.CAMERA};
@@ -39,10 +40,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferences=getSharedPreferences("login_data",MODE_PRIVATE);
-        Token=sharedPreferences.getString("Tokenvalue",null);
+        sharedPreferences = getSharedPreferences("login_data", MODE_PRIVATE);
+        Token = sharedPreferences.getString("Tokenvalue", null);
+        pin=sharedPreferences.getInt("Pinvalue",-1);
 
-        if(Token==null){
+        if (Token == null || pin==-1) {
             if (savedInstanceState == null) {
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -50,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
                         .add(R.id.fragment_container_mainactivity, Login_Fragment.class, null)
                         .commit();
             }
-        }
-        else {
+        } else {
             if (savedInstanceState == null) {
                 getSupportFragmentManager()
                         .beginTransaction()
@@ -62,28 +63,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-       //askPermisson_function();
+        //askPermisson_function();
 
-
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FragmentManager fragmentManager = getFragmentManager();
-//                FragmentTransaction trans= fragmentManager.beginTransaction();
-//                Login_Fragment login_fragment = new Login_Fragment();
-//                trans.replace(R.id.main_Frame,login_fragment);
-//                trans.commit();
-//                Toast.makeText(MainActivity.this, "click", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        FragmentTransaction trans= fragmentManager.beginTransaction();
-//        Login_Fragment login_fragment = new Login_Fragment();
-//        trans.replace(R.id.main_Frame,login_fragment);
-//        trans.commit();
 
     }
 
-//    @Override
+    //    @Override
 //    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 //
 //        if(requestCode==ALL_PERMISSION){
@@ -110,18 +95,24 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }
 //    }
-   public void Add_Login_Fragment(View view){
-                getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
-                  .add(R.id.fragment_container_mainactivity,Login_Fragment.class,null)
-                 .commit();
-  }
-    public void Add_PinGenerator_Fragment(View view){
-        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
-                .add(R.id.fragment_container_mainactivity,Pin_Generator.class,null)
-                .commit();    }
-    public void Add_Pin_Fragment(View view){
-        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
-                .add(R.id.fragment_container_mainactivity,Pin_Fragment.class,null)
+    public void Add_Login_Fragment(View view) {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragment_container_mainactivity, Login_Fragment.class, null)
+                .commit();
+    }
+
+    public void Add_PinGenerator_Fragment(View view) {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragment_container_mainactivity, Pin_Generator.class, null)
+                .commit();
+    }
+
+    public void Add_Pin_Fragment(View view) {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.fragment_container_mainactivity, Pin_Fragment.class, null)
                 .commit();
     }
 //    public void askPermission_function(){

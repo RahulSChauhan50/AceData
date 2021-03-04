@@ -10,6 +10,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +25,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MainActivity extends AppCompatActivity {
     Button btn;
+    SharedPreferences sharedPreferences;
+    String Token;
     final int ALL_PERMISSION=1;
     String[] permissions={Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -35,21 +38,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        sharedPreferences=getSharedPreferences("login_data",MODE_PRIVATE);
+        Token=sharedPreferences.getString("Tokenvalue",null);
+
+        if(Token==null){
+            if (savedInstanceState == null) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setReorderingAllowed(true)
+                        .add(R.id.fragment_container_mainactivity, Login_Fragment.class, null)
+                        .commit();
+            }
+        }
+        else {
+            if (savedInstanceState == null) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .setReorderingAllowed(true)
+                        .add(R.id.fragment_container_mainactivity, Pin_Fragment.class, null)
+                        .commit();
+            }
+        }
 
 
        //askPermisson_function();
 
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .setReorderingAllowed(true)
-//                    .add(R.id.fragment_container_mainactivity, Login_Fragment.class, null)
-//                    .commit();
-//        }
 
-
-
-        Intent intent=new Intent(MainActivity.this,AppActivity.class);
-        startActivity(intent);
 //        btn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {

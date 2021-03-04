@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
          fragmentManager = getFragmentManager();
 
-        Intent intent=new Intent(,AppActivity.class);
+        Intent intent=new Intent(MainActivity.this,AppActivity.class);
         startActivity(intent);
 //        btn.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -27,7 +27,6 @@ import com.example.acedata.ui.datalist.DatalistFragment;
 
 public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyListener,View.OnFocusChangeListener {
 
-    Button open_btn;
     private EditText et_digit1, et_digit2, et_digit3, et_digit4;//In this et_digit1 is Most significant digit and et_digit4 is least significant digit
     private int whoHasFocus;
     char[] code = new char[4];//Store the digits in charArray.
@@ -40,9 +39,6 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View myView= inflater.inflate(R.layout.fragment_pin_, container, false);
-        open_btn = myView.findViewById(R.id.open);
-        // Inflate the layout for this fragment
-        open_btn = myView.findViewById(R.id.open);
 
         initializeView(myView);
         et_digit1.requestFocus();//Left digit gets focus after adding of fragment in Container

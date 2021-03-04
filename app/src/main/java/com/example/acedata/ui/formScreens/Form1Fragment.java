@@ -1,6 +1,6 @@
 package com.example.acedata.ui.formScreens;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,11 +9,13 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.acedata.AppActivity;
 import com.example.acedata.R;
 
 public class Form1Fragment extends Fragment {
+    FragmentManager fragmentManager;
     Button btn;
     @Nullable
     @Override

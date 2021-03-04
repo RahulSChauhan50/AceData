@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="#F8FFFF"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,10 +34,10 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/baloo"
+            android:fontFamily="@font/aldrich"
             android:text="Login Account"
             android:textColor="@color/black"
-            android:textSize="30dp"
+            android:textSize="35dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/username_input"
             app:layout_constraintEnd_toEndOf="parent"

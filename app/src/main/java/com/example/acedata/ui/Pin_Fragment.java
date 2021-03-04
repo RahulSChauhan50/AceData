@@ -41,6 +41,8 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
         // Inflate the layout for this fragment
         View myView= inflater.inflate(R.layout.fragment_pin_, container, false);
         open_btn = myView.findViewById(R.id.open);
+        // Inflate the layout for this fragment
+        open_btn = myView.findViewById(R.id.open);
 
         initializeView(myView);
         et_digit1.requestFocus();//Left digit gets focus after adding of fragment in Container

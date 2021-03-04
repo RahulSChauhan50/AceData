@@ -48,7 +48,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="80dp"
-          android:fontFamily="@font/audiowide"
+          android:fontFamily="@font/aldrich"
           android:text="Set Your Pin"
           android:textColor="@color/black"
           android:textSize="24dp" />
@@ -137,7 +137,7 @@
        android:layout_height="wrap_content"
        android:layout_marginTop="30dp"
        android:orientation="vertical"
-       android:visibility="invisible"
+
        android:paddingHorizontal="10dp"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
@@ -147,7 +147,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="60dp"
-          android:fontFamily="@font/audiowide"
+          android:fontFamily="@font/aldrich"
           android:text="Confirm  Pin"
           android:textColor="@color/black"
           android:textSize="24dp" />
@@ -206,8 +206,6 @@
              android:textColor="#000"
              android:textSize="30dp"
              android:textStyle="bold"
-
-
              />
 
          <EditText

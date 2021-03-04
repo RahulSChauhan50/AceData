@@ -51,12 +51,12 @@
                 android:background="@drawable/box"
                 android:focusable="true"
                 android:gravity="center"
+                android:hint="_"
                 android:inputType="number"
                 android:maxLength="1"
-                android:hint="_"
-                android:textColorHint="@color/black"
                 android:password="true"
                 android:textColor="#000"
+                android:textColorHint="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold" />
 
@@ -69,12 +69,12 @@
                 android:background="@drawable/box"
                 android:focusable="true"
                 android:gravity="center"
+                android:hint="_"
                 android:inputType="number"
                 android:maxLength="1"
-                android:hint="_"
-                android:textColorHint="@color/black"
                 android:password="true"
                 android:textColor="#000"
+                android:textColorHint="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold" />
 
@@ -87,12 +87,12 @@
                 android:background="@drawable/box"
                 android:focusable="true"
                 android:gravity="center"
+                android:hint="_"
                 android:inputType="number"
                 android:maxLength="1"
-                android:hint="_"
-                android:textColorHint="@color/black"
                 android:password="true"
                 android:textColor="#000"
+                android:textColorHint="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold"
 
@@ -109,27 +109,29 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:hint="_"
-                android:textColorHint="@color/black"
                 android:inputType="number"
                 android:maxLength="1"
                 android:password="true"
                 android:textColor="#000"
+                android:textColorHint="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold"
 
                 />
-
         </LinearLayout>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/forget_pin"
+            android:layout_marginTop="20dp"
+            android:text="Forgot Pin"
+            android:textSize="20dp"
+            android:textColor="@color/purple_700"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.468"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ProgressBar
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@+id/progress_circular"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-         android:visibility="invisible"></ProgressBar>
 </androidx.constraintlayout.widget.ConstraintLayout>

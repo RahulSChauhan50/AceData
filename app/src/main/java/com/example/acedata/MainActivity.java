@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.acedata.ui.Login_Fragment;
 import com.example.acedata.ui.Pin_Fragment;
 import com.example.acedata.ui.Pin_Generator;
+import com.example.acedata.ui.datalist.DatalistFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,12 +37,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
+                .add(R.id.fragment_container_mainactivity,Login_Fragment.class,null)
+                 .commit();
+
        // askPermisson_function();
         //askPermission_function();
 
-         fragmentManager = getFragmentManager();
+         //fragmentManager = getFragmentManager();
 
-        Intent intent=new Intent(MainActivity.this,AppActivity.class);
+        Intent intent=new Intent(MainActivity.this, AppActivity.class);
         startActivity(intent);
 //        btn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -88,24 +94,20 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }
 //    }
-//    public void Add_Login_Fragment(View view){
-//        FragmentTransaction trans= fragmentManager.beginTransaction();
-//        Login_Fragment login_fragment = new Login_Fragment();
-//        trans.replace(R.id.main_Frame,login_fragment);
-//        trans.commit();
-//    }
-//    public void Add_PinGenerator_Fragment(View view){
-//        FragmentTransaction trans= fragmentManager.beginTransaction();
-//        Pin_Generator pin_generator = new Pin_Generator();
-//        trans.replace(R.id.main_Frame,pin_generator);
-//        trans.commit();
-//    }
-//    public void Add_Pin_Fragment(View view){
-//        FragmentTransaction trans= fragmentManager.beginTransaction();
-//        Pin_Fragment pin = new Pin_Fragment();
-//        trans.replace(R.id.main_Frame,pin);
-//        trans.commit();
-//    }
+   public void Add_Login_Fragment(View view){
+                getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
+                  .add(R.id.fragment_container_mainactivity,Login_Fragment.class,null)
+                 .commit();
+  }
+    public void Add_PinGenerator_Fragment(View view){
+        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
+                .add(R.id.fragment_container_mainactivity,Pin_Generator.class,null)
+                .commit();    }
+    public void Add_Pin_Fragment(View view){
+        getSupportFragmentManager().beginTransaction().setReorderingAllowed(true)
+                .add(R.id.fragment_container_mainactivity,Pin_Fragment.class,null)
+                .commit();
+    }
 //    public void askPermission_function(){
 //
 //        for(String permission:permissions){

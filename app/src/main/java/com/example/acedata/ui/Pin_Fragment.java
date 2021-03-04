@@ -1,9 +1,12 @@
 package com.example.acedata.ui;
 
 import androidx.fragment.app.Fragment;
+
+import android.content.Intent;
 import android.os.Bundle;
 
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -12,14 +15,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.acedata.R;
+import com.example.acedata.ui.datalist.DatalistFragment;
 
 public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyListener,View.OnFocusChangeListener {
 
     Button open_btn;
-
+    int count = 5000;
+    ProgressBar progressBar;
+    Runnable runnable;
     private EditText et_digit1, et_digit2, et_digit3, et_digit4;//In this et_digit1 is Most significant digit and et_digit4 is least significant digit
     private int whoHasFocus;
     char[] code = new char[4];//Store the digits in charArray.
@@ -30,6 +37,7 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
 
         View myview = inflater.inflate(R.layout.fragment_pin__generator, container, false);
         open_btn = myview.findViewById(R.id.open);
+        progressBar = myview.findViewById(R.id.progress_circular);
         // Inflate the layout for this fragment
         View myView= inflater.inflate(R.layout.fragment_pin_, container, false);
 
@@ -43,6 +51,7 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
         et_digit2 = (EditText) view.findViewById(R.id.second_Number);
         et_digit3 = (EditText) view.findViewById(R.id.third_Number);
         et_digit4 = (EditText) view.findViewById(R.id.fourth_Number);
+
         setListners();
     }
     private void setListners()

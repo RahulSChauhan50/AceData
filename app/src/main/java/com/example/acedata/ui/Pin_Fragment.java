@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.acedata.AppActivity;
@@ -34,6 +35,7 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
     String pin = "";
     int sharedpin;
     SharedPreferences sharedPreferences;
+    TextView forgotpin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +56,8 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
         et_digit3 = (EditText) view.findViewById(R.id.third_Number);
         et_digit4 = (EditText) view.findViewById(R.id.fourth_Number);
 
+        forgotpin=view.findViewById(R.id.forget_pin);
+
         setListners();
     }
     private void setListners()
@@ -72,6 +76,13 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
         et_digit2.setOnFocusChangeListener(this);
         et_digit3.setOnFocusChangeListener(this);
         et_digit4.setOnFocusChangeListener(this);
+
+        forgotpin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                forgotPin_function(view);
+            }
+        });
     }
     @Override
     public void onFocusChange(View v, boolean hasFocus)
@@ -203,6 +214,17 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
             }
         }
         return false;
+    }
+
+    public void forgotPin_function(View view){
+
+        SharedPreferences.Editor ed=sharedPreferences.edit();
+        ed.remove("Tokenvalue");
+        ed.remove("Pinvalue");
+        ed.apply();
+
+        //calling login fragment
+        ((MainActivity)getActivity()).Add_Login_Fragment(view);
     }
 
 }

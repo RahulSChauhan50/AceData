@@ -2,6 +2,7 @@ package com.example.acedata.recyclerViewAdapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,10 +52,16 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
             @Override
             public void onClick(View view) {
                 Toast.makeText(context,itemData.get(position).getName()+"\n"+itemData.get(position).getAdhar(),Toast.LENGTH_SHORT).show();
+
+                Form1Fragment form1Fragment=new Form1Fragment();
+                Bundle arguments = new Bundle();
+                arguments.putString( "Hello" , "my data is this.....");
+                form1Fragment.setArguments(arguments);
+
                 FragmentManager fragmentManager=((AppCompatActivity)context).getSupportFragmentManager();
                 FragmentTransaction tr=fragmentManager.beginTransaction();
                 tr.setReorderingAllowed(true);
-                tr.replace(R.id.fragment_container_appactivity, Form1Fragment.class,null);
+                tr.replace(R.id.fragment_container_appactivity, form1Fragment,null);
                 tr.commit();
             }
         });

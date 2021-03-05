@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.acedata.AppActivity;
+import com.example.acedata.MainActivity;
 import com.example.acedata.R;
 import com.example.acedata.ui.datalist.DatalistFragment;
 
@@ -149,6 +150,9 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
                                 pin="";
                                 Intent intent=new Intent(getContext(), AppActivity.class);
                                 startActivity(intent);
+
+                                getActivity().finish();
+
                             }else {
                                 Toast.makeText(getActivity(),"Pin doesn't match!",Toast.LENGTH_SHORT).show();
                             }

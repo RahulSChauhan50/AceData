@@ -22,7 +22,6 @@ public class AppActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
                     .add(R.id.fragment_container_appactivity, DatalistFragment.class, null)
-                    .addToBackStack("base")
                     .commit();
         }
     }

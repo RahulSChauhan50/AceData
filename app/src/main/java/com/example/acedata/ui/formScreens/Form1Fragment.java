@@ -3,6 +3,7 @@ package com.example.acedata.ui.formScreens;
 import androidx.fragment.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,11 @@ public class Form1Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View form1 =  inflater.inflate(R.layout.fragment_form1,container,false);
+
+        Bundle arguments = getArguments();
+        String desired_string = arguments.getString("Hello");
+        Log.d("value of hello",desired_string);
+
        btn=form1.findViewById(R.id.save);
        btn.setOnClickListener(new View.OnClickListener() {
            @Override

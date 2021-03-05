@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class Login_Fragment extends Fragment {
+    ProgressBar progressBar;
     Button submit_btn;
     FragmentManager fragmentManager;
     String username;
@@ -46,6 +48,7 @@ public class Login_Fragment extends Fragment {
         submit_btn = myView.findViewById(R.id.submit);
         edittextusername=myView.findViewById(R.id.textinputedittext_username);
         edittextpassword=myView.findViewById(R.id.textinputedittext_password);
+        progressBar=myView.findViewById(R.id.progressBar_signin);
         sharedPreferences=getActivity().getSharedPreferences("login_data", Context.MODE_PRIVATE);
         fragmentManager=getActivity().getSupportFragmentManager();
         return myView;
@@ -63,6 +66,8 @@ public class Login_Fragment extends Fragment {
                     Toast.makeText(getActivity(),"Invalid Username or Password",Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    progressBar.setVisibility(View.VISIBLE);
+
                     UploadReceiptService service = RetrofitClientInstance.getRetrofitInstance().create(UploadReceiptService.class);
 
                     Call<FormData> call = service.signin(username,password);
@@ -70,6 +75,7 @@ public class Login_Fragment extends Fragment {
                     call.enqueue(new Callback<FormData>() {
                         @Override
                         public void onResponse(Call<FormData> call, retrofit2.Response<FormData> response) {
+                            progressBar.setVisibility(View.GONE);
 
                             if(response.code()==400){
                                 Toast.makeText(getActivity(),"Invalid credentials",Toast.LENGTH_SHORT).show();
@@ -90,6 +96,7 @@ public class Login_Fragment extends Fragment {
 
                         @Override
                         public void onFailure(Call<FormData> call, Throwable t) {
+                            progressBar.setVisibility(View.GONE);
                             Log.d("Faied","SignIn failed "+t.getMessage());
                             Toast.makeText(getActivity(),"SignIn Failed....",Toast.LENGTH_SHORT).show();
                         }

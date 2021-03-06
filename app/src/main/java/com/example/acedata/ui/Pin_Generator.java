@@ -56,6 +56,7 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
                         SharedPreferences.Editor ed=sharedPreferences.edit();
                         ed.putInt("Pinvalue",Integer.parseInt(pin.trim()));
                         ed.commit();
+                        Toast.makeText(getActivity(), "Pin Generated SuccessFully", Toast.LENGTH_SHORT).show();
                         ((MainActivity)getActivity()).Add_Pin_Fragment(view);
                     }
                     else{
@@ -236,12 +237,6 @@ public class Pin_Generator extends Fragment implements TextWatcher,View.OnKeyLis
                     code2[3]= et_digit8.getText().toString().charAt(0);
                     if(pin2.length()>=4){
                         Toast.makeText(getActivity(), pin2, Toast.LENGTH_SHORT).show();
-                        if(pin.trim().equals(pin2.trim())){
-                            Toast.makeText(getActivity(), "Pin Generated SuccessFully", Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            Toast.makeText(getActivity(), "Entered Pin is not Matched", Toast.LENGTH_SHORT).show();
-                        }
                     }
 
 

@@ -116,7 +116,6 @@
                 android:textColorHint="@color/black"
                 android:textSize="30dp"
                 android:textStyle="bold"
-
                 />
         </LinearLayout>
 
@@ -127,6 +126,7 @@
             android:layout_marginTop="20dp"
             android:text="Forgot Pin"
             android:textSize="20dp"
+            android:textStyle="bold"
             android:textColor="@color/purple_700"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.468"

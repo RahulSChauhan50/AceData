@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.acedata.FormData;
 import com.example.acedata.R;
 import com.example.acedata.ui.formScreens.Form1Fragment;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,9 +54,13 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
             public void onClick(View view) {
                 Toast.makeText(context,itemData.get(position).getName()+"\n"+itemData.get(position).getAdhar(),Toast.LENGTH_SHORT).show();
 
+                //converting object to string for passing
+                Gson gson = new Gson();
+                String object_pass = gson.toJson(itemData.get(position));
+
                 Form1Fragment form1Fragment=new Form1Fragment();
                 Bundle arguments = new Bundle();
-                arguments.putString( "Hello" , "my data is this.....");
+                arguments.putString( "itemstring" , object_pass);
                 form1Fragment.setArguments(arguments);
 
                 FragmentManager fragmentManager=((AppCompatActivity)context).getSupportFragmentManager();

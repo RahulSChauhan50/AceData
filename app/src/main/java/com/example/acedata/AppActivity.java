@@ -6,12 +6,14 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.example.acedata.ui.datalist.DatalistFragment;
 import com.example.acedata.ui.formScreens.Form1Fragment;
@@ -85,5 +87,20 @@ public class AppActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment currentfragment=getSupportFragmentManager().findFragmentById(R.id.fragment_container_appactivity);
+        if(currentfragment instanceof DatalistFragment){
+            //Log.d("current fragment","recyclerview");
+            super.onBackPressed();
+        }
+        else{
+                getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragment_container_appactivity, DatalistFragment.class, null)
+                        .commit();
+        }
     }
 }

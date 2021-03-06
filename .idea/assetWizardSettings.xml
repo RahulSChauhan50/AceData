@@ -20,8 +20,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="00bfa5" />
-                            <entry key="outputName" value="pin_icon1" />
-                            <entry key="sourceFile" value="E:\bank_project_icons\log-in.svg" />
+                            <entry key="outputName" value="ic_login_1" />
+                            <entry key="sourceFile" value="E:\bank_project_icons\login(1).svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -21,7 +21,6 @@ public class Form2Fragment extends Fragment {
         View form3= inflater.inflate(R.layout.fragment_form2,container,false);
 
         btn_next = form3.findViewById(R.id.open);
-        btn_back = form3.findViewById(R.id.back);
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -29,12 +28,6 @@ public class Form2Fragment extends Fragment {
             }
         });
 
-        btn_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((AppActivity)getActivity()).Add_Form1(view);
-            }
-        });
         return  form3;
     }
 }

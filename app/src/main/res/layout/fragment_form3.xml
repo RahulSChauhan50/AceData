@@ -283,6 +283,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout7"
                 app:cornerRadius="15dp"
+                android:fontFamily="@font/audiowide"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="20dp"

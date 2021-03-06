@@ -35,7 +35,11 @@ import com.example.acedata.MainActivity;
 import com.example.acedata.R;
 import com.example.acedata.location.FetchAddressTask;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
@@ -59,7 +63,9 @@ public class Form2Fragment extends Fragment implements
     int imagenumber = -1;
     FormData obj;
     Location mLastLocation;
-    FusedLocationProviderClient mFusedLocationClient;
+
+    private FusedLocationProviderClient mFusedLocationClient;
+
     String[] sampleimagesinfo;
     String mCurrentPhotoPath;
 
@@ -80,6 +86,7 @@ public class Form2Fragment extends Fragment implements
         textView_image4data = form2.findViewById(R.id.textViewimage4);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+
         sampleimagesinfo = new String[4];
 
         return form2;
@@ -199,26 +206,34 @@ public class Form2Fragment extends Fragment implements
 
     @SuppressLint("MissingPermission")
     void getLocation_function() {
-        mFusedLocationClient.getLastLocation()
-                .addOnSuccessListener(new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // GPS location can be null if GPS is switched off
-                        if (location != null) {
-                            mLastLocation = location;
-                            new FetchAddressTask(getContext(),
-                                    Form2Fragment.this).execute(location);
-                            Log.d("Location", String.valueOf(mLastLocation.getLatitude()) + " " + String.valueOf(mLastLocation.getLongitude()));
+        //https://developer.android.com/codelabs/advanced-android-training-device-location#3
+        //https://stackoverflow.com/questions/40880705/how-to-get-user-location-only-once-without-tracking
 
-                        } else {
-                            Toast.makeText(getContext(), "Error while fetching location", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        CancellationTokenSource cts = new CancellationTokenSource();
+        mFusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY,cts.getToken())
+        .addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+               if(location!=null){
+                   Log.d("coordinates",String.valueOf(location.getLongitude())+" "+String.valueOf(location.getLatitude()));
+               }
+               else{
+                   Log.d("location","location is null");
+               }
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("failed",e.toString());
+            }
+        });
+
     }
+
 
     @Override
     public void onTaskCompleted(String result) {
-
+            Log.d("current location",result);
     }
 }

@@ -29,6 +29,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_log_in_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -37,40 +47,39 @@
             android:text="Login Account"
             android:textColor="@color/black"
             android:textSize="35dp"
+            android:layout_marginTop="20dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/username_input"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#0504aa"
-            android:text="Login"
             android:fontFamily="@font/aladin"
+            android:text="Login"
             android:textSize="24dp"
+            android:layout_marginTop="30dp"
             app:cornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_input"
-            app:layout_constraintVertical_bias="0.486" />
+            app:layout_constraintTop_toBottomOf="@+id/password_input" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/username_input"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="50dp"
             android:autofillHints="@color/black"
             app:hintTextColor="@color/black"
             app:boxStrokeColor="@color/black"
             android:hint="@string/username"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView4"
             app:startIconDrawable="@drawable/user2"
             app:startIconTint="#0D2ACA">
 

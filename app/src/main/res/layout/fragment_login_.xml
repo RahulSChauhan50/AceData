@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8FFFF"
+    android:background="#DCDCDC"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#0504aa"
             android:text="Login"
+            android:fontFamily="@font/aladin"
             android:textSize="24dp"
             app:cornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="parent"

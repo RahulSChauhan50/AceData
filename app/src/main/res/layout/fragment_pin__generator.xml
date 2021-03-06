@@ -237,6 +237,7 @@
        android:layout_marginHorizontal="20dp"
        android:backgroundTint="@color/purple_700"
        android:text="Set"
+       android:fontFamily="@font/aldrich"
        android:textSize="24dp"
        app:cornerRadius="15dp"
        app:layout_constraintEnd_toEndOf="parent"

@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-class FetchAddressTask extends AsyncTask<Location, Void, String> {
+public class FetchAddressTask extends AsyncTask<Location, Void, String> {
 
     private Context mContext;
     private OnTaskCompleted mListener;
 
 
 
-    FetchAddressTask(Context applicationContext, OnTaskCompleted listener) {
+    public FetchAddressTask(Context applicationContext, OnTaskCompleted listener) {
         mContext = applicationContext;
         mListener = listener;
     }
@@ -83,7 +83,7 @@ class FetchAddressTask extends AsyncTask<Location, Void, String> {
         super.onPostExecute(address);
     }
 
-    interface OnTaskCompleted {
+    public interface OnTaskCompleted {
         void onTaskCompleted(String result);
     }
 

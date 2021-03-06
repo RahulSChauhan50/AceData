@@ -9,7 +9,43 @@ public class FormData {
     String avatar2;
     String avatar3;
     String avatar4;
+    String image1Uri;
+    String image2Uri;
+    String image3Uri;
+    String image4Uri;
     String key;
+
+    public String getImage1Uri() {
+        return image1Uri;
+    }
+
+    public void setImage1Uri(String image1Uri) {
+        this.image1Uri = image1Uri;
+    }
+
+    public String getImage2Uri() {
+        return image2Uri;
+    }
+
+    public void setImage2Uri(String image2Uri) {
+        this.image2Uri = image2Uri;
+    }
+
+    public String getImage3Uri() {
+        return image3Uri;
+    }
+
+    public void setImage3Uri(String image3Uri) {
+        this.image3Uri = image3Uri;
+    }
+
+    public String getImage4Uri() {
+        return image4Uri;
+    }
+
+    public void setImage4Uri(String image4Uri) {
+        this.image4Uri = image4Uri;
+    }
 
     public String getKey() {
         return key;

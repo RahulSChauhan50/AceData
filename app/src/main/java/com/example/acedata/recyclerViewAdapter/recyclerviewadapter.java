@@ -49,10 +49,13 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
     public void onBindViewHolder(@NonNull recyclerviewHolder holder, final int position) {
         holder.name.setText(itemData.get(position).getName());
         holder.adhar.setText(itemData.get(position).getAdhar());
+
+        holder.list_uploaderror.setVisibility(View.INVISIBLE);
+
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,itemData.get(position).getName()+"\n"+itemData.get(position).getAdhar(),Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,itemData.get(position).getName()+"\n"+itemData.get(position).getAdhar(),Toast.LENGTH_SHORT).show();
 
                 //converting object to string for passing
                 Gson gson = new Gson();
@@ -60,7 +63,7 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
 
                 Form1Fragment form1Fragment=new Form1Fragment();
                 Bundle arguments = new Bundle();
-                arguments.putString( "itemstring" , object_pass);
+                arguments.putString( "form1_pass" , object_pass);
                 form1Fragment.setArguments(arguments);
 
                 FragmentManager fragmentManager=((AppCompatActivity)context).getSupportFragmentManager();
@@ -80,6 +83,7 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
 
     public class recyclerviewHolder extends RecyclerView.ViewHolder{
         TextView name,adhar;
+        ImageView list_uploaderror;
         ConstraintLayout parent;
 
         public recyclerviewHolder(@NonNull View itemView) {
@@ -87,6 +91,7 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
 
             name=itemView.findViewById(R.id.list_textviewnamevalue);
             adhar=itemView.findViewById(R.id.list_textviewadharvalue);
+            list_uploaderror=itemView.findViewById(R.id.list_uploaderror);
             parent=itemView.findViewById(R.id.itemparent);
 
         }

@@ -18,18 +18,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/list_uploaderror"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_baseline_error_outline_24" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/child_constraint"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             android:layout_weight="1">
 
             <LinearLayout
@@ -92,9 +85,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
+            android:id="@+id/list_uploaderror"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_baseline_error_outline_24" />
+
+        <ImageView
             android:id="@+id/list_openitem"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24" />

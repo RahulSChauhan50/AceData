@@ -229,12 +229,9 @@ public class AppActivity extends AppCompatActivity {
                             });
 
 
-                            Gson gson = new Gson();
-                            String object_pass = gson.toJson(obj);
-
                             SharedPreferences.Editor ed=storeObjectShared.edit();
-                            ed.putString(obj.getAdhar(),object_pass);
-                            ed.commit();
+                            ed.remove(obj.getAdhar());
+                            ed.apply();
 
                             ///stopping notification////
                             mBuilder.setContentText("Upload complete")

@@ -85,8 +85,6 @@ public class Form2Fragment extends Fragment implements
 
     SharedPreferences storeObjectShared;
 
-    NotificationManager mNotifyManager;
-    NotificationCompat.Builder mBuilder;
 
     String[] sampleimagesinfo;
     String mCurrentPhotoPath;
@@ -110,13 +108,6 @@ public class Form2Fragment extends Fragment implements
         storeObjectShared=getActivity().getSharedPreferences("Stored_objects", Context.MODE_PRIVATE);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-
-        mNotifyManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        mBuilder = new NotificationCompat.Builder(getContext(),"upload_data");
-        mBuilder.setContentTitle("File Upload")
-                .setContentText("Upload in progress")
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setSmallIcon(R.drawable.ic_baseline_upload_file_24);
 
         sampleimagesinfo = new String[4];
 

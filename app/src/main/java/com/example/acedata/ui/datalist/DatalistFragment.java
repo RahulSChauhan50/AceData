@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,21 +54,27 @@ public class DatalistFragment extends Fragment {
         call.enqueue(new Callback<List<FormData>>() {
             @Override
             public void onResponse(Call<List<FormData>> call, retrofit2.Response<List<FormData>> response) {
-                List<FormData> posts = response.body();
                 progressBar.setVisibility(View.GONE);
-                for ( FormData post : posts) {
-                    String content = "";
-                    content += "name: " + post.getName() + "\n";
-                    content += "Address: " + post.getAddress() + "\n";
-                    content += "adhar: " + post.getAdhar() + "\n";
-                    content += "mobile: " + post.getMobile_no() + "\n\n";
 
-                    Log.d("Content",content);
+               if(response.code()==200){
+                   List<FormData> posts = response.body();
+                   for ( FormData post : posts) {
+                       String content = "";
+                       content += "name: " + post.getName() + "\n";
+                       content += "Address: " + post.getAddress() + "\n";
+                       content += "adhar: " + post.getAdhar() + "\n";
+                       content += "mobile: " + post.getMobile_no() + "\n\n";
 
-                }
-                recyclerviewadapter adapter = new recyclerviewadapter(posts, getContext());
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                       Log.d("Content",content);
+
+                   }
+                   recyclerviewadapter adapter = new recyclerviewadapter(posts, getContext());
+                   recyclerView.setAdapter(adapter);
+                   recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+               }
+               else{
+                   Toast.makeText(getContext(),"Failed to retrieve Data List",Toast.LENGTH_SHORT).show();
+               }
             }
 
             @Override

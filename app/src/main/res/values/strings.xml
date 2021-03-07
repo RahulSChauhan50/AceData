@@ -18,9 +18,9 @@
     <string name="buttonimage2">Select image 2</string>
     <string name="buttonimage3">Select image 3</string>
     <string name="buttonimage4">Select image 4</string>
-    <string name="textViewImage1">Image1.jpg</string>
-    <string name="textViewImage2">Image2.jpg</string>
-    <string name="textViewImage3">Image3.jpg</string>
-    <string name="textViewImage4">Image4.jpg</string>
+    <string name="textViewImage1">Image name and size will appear here</string>
+    <string name="textViewImage2">Image name and size will appear here</string>
+    <string name="textViewImage3">Image name and size will appear here</string>
+    <string name="textViewImage4">Image name and size will appear here</string>
 
 </resources>

@@ -4,20 +4,24 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Layout;
+import android.text.StaticLayout;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,15 +33,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.acedata.AppActivity;
 import com.example.acedata.FormData;
 import com.example.acedata.MainActivity;
 import com.example.acedata.R;
 import com.example.acedata.location.FetchAddressTask;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,13 +46,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Form2Fragment extends Fragment implements
         FetchAddressTask.OnTaskCompleted {
-    Button btn_back, btn_next;
+    Button btn_next;
     Button button_selectphoto1;
     Button button_selectphoto2;
     Button button_selectphoto3;
@@ -62,8 +64,8 @@ public class Form2Fragment extends Fragment implements
     TextView textView_image4data;
     int imagenumber = -1;
     FormData obj;
-    Location mLastLocation;
 
+    Location mLastLocation;
     private FusedLocationProviderClient mFusedLocationClient;
 
     String[] sampleimagesinfo;
@@ -143,7 +145,7 @@ public class Form2Fragment extends Fragment implements
     }
 
     void capture_function() {
-        final int REQUEST_IMAGE_CAPTURE = 1;
+        //final int REQUEST_IMAGE_CAPTURE = 1;
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
@@ -206,34 +208,219 @@ public class Form2Fragment extends Fragment implements
 
     @SuppressLint("MissingPermission")
     void getLocation_function() {
-        //https://developer.android.com/codelabs/advanced-android-training-device-location#3
-        //https://stackoverflow.com/questions/40880705/how-to-get-user-location-only-once-without-tracking
+
+        final int currentFinalImageNumber=imagenumber;
+        final String currentFinalPhotoPath=mCurrentPhotoPath;
 
         CancellationTokenSource cts = new CancellationTokenSource();
-        mFusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY,cts.getToken())
-        .addOnSuccessListener(new OnSuccessListener<Location>() {
-            @Override
-            public void onSuccess(Location location) {
-               if(location!=null){
-                   Log.d("coordinates",String.valueOf(location.getLongitude())+" "+String.valueOf(location.getLatitude()));
-               }
-               else{
-                   Log.d("location","location is null");
-               }
-            }
-        })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("failed",e.toString());
-            }
-        });
+        mFusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, cts.getToken())
+                .addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            Log.d("coordinates", String.valueOf(location.getLongitude()) + " " + String.valueOf(location.getLatitude()));
+                            mLastLocation = location;
+                            new FetchAddressTask(getContext(),
+                                    Form2Fragment.this,currentFinalImageNumber,currentFinalPhotoPath).execute(location);
+                        } else {
+                            Log.d("location", "location is null");
+                            Toast.makeText(getContext(),"Failed to fetch location \nCheck if GPS is turned on",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("failed", e.toString());
+                        Toast.makeText(getContext(),"Failed to fetch location \nCheck if GPS is turned on",Toast.LENGTH_SHORT).show();
+                    }
+                });
 
     }
 
 
     @Override
-    public void onTaskCompleted(String result) {
-            Log.d("current location",result);
+    public void onTaskCompleted(String result,int currentImageNumber,String currentPhotoPath) {
+        Log.d("current address", result);
+        Log.d("imagenumber", String.valueOf(currentImageNumber)+" "+currentPhotoPath);
+
+        watermarkThread thread=new watermarkThread(currentImageNumber,currentPhotoPath,result);
+        thread.start();
+    }
+
+    class watermarkThread extends Thread{
+        int currentImageNumber;
+        String currentPhotoPath;
+        String address;
+
+        public watermarkThread(int currentImageNumberPassed,String currentPhotoPathPassed,String addressPassed) {
+            this.currentImageNumber=currentImageNumberPassed;
+            this.currentPhotoPath=currentPhotoPathPassed;
+            this.address=addressPassed;
+        }
+
+        @Override
+        public void run() {
+
+            //Uri uri = data.getData();
+            File file = new File(currentPhotoPath);
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), Uri.fromFile(file));
+
+                Bitmap bmpWithBorder = Bitmap.createBitmap(bitmap.getWidth() , bitmap.getHeight() + 300 * 2, bitmap.getConfig());
+                Canvas canvas = new Canvas(bmpWithBorder);
+                canvas.drawColor(Color.WHITE);
+                canvas.drawBitmap(bitmap, 0,0, null);
+
+                // new antialiased Paint
+                TextPaint paint=new TextPaint(Paint.ANTI_ALIAS_FLAG);
+                // text color - #3D3D3D
+                paint.setColor(Color.BLACK);
+                // text size in pixels
+                paint.setTextSize(125);
+                // text shadow
+                paint.setShadowLayer(1f, 0f, 1f, Color.WHITE);
+
+                // set text width to canvas width
+                int textWidth = canvas.getWidth() - 50;
+                ///////////////////text//////////
+                String gText=address;
+                // init StaticLayout for text
+                StaticLayout textLayout = new StaticLayout(
+                        gText, paint, textWidth, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
+
+
+                // get position of text's top left corner
+                float x = (bmpWithBorder.getWidth() - textWidth)/2;
+                float y = bitmap.getHeight()+50;
+
+                // draw text to the Canvas
+                canvas.save();
+                canvas.translate(x, y);
+                textLayout.draw(canvas);
+                canvas.restore();
+                //////////////////////////
+
+                //////saving compressed bitmap////
+                SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd_HHmmss_");
+                String timeStamp = sdf.format(new Date());
+                String imageFileName = "Compressed_" + timeStamp;
+
+                File dir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+                File imagecompress = File.createTempFile(
+                        imageFileName,
+                        ".jpeg",
+                        dir
+                );
+
+                //getting path of compressed image///////
+                switch (currentImageNumber){
+                    case 0:{
+                        obj.setImage1Uri(imagecompress.getAbsolutePath());
+                        break;
+                    }
+                    case 1:{
+                        obj.setImage2Uri(imagecompress.getAbsolutePath());
+                        break;
+                    }
+                    case 2:{
+                        obj.setImage3Uri(imagecompress.getAbsolutePath());
+                        break;
+                    }
+                    case 3:{
+                        obj.setImage4Uri(imagecompress.getAbsolutePath());
+                        break;
+                    }
+
+                }
+
+                ///////saving compressed image///////
+                try (FileOutputStream out = new FileOutputStream(imagecompress)) {
+                    bmpWithBorder.compress(Bitmap.CompressFormat.JPEG, 50, out);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                /////////////////////////////////
+
+                /////fetching file info////
+                File tempCompressedFile;
+
+                switch (currentImageNumber){
+                    case 0:{
+                        tempCompressedFile=new File(obj.getImage1Uri());
+                        break;
+                    }
+                    case 1:{
+                        tempCompressedFile=new File(obj.getImage2Uri());
+                        break;
+                    }
+                    case 2:{
+                        tempCompressedFile=new File(obj.getImage3Uri());
+                        break;
+                    }
+                    case 3:{
+                        tempCompressedFile=new File(obj.getImage4Uri());
+                        break;
+                    }
+
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + currentImageNumber);
+                }
+
+                sampleimagesinfo[currentImageNumber] = tempCompressedFile.getName() ;
+                String filename=tempCompressedFile.getName() + "\n" + String.valueOf(tempCompressedFile.length() / 1000) + " KB";
+                //////////////////////////
+
+                switch (currentImageNumber) {
+                    case 0: {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                textView_image1data.setText(filename);
+                            }
+                        });
+
+                        Log.d("obj path",obj.getImage1Uri());
+                        break;
+                    }
+
+                    case 1: {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                textView_image2data.setText(filename);
+                            }
+                        });
+                        Log.d("obj path",obj.getImage2Uri());
+                        break;
+                    }
+
+                    case 2: {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                textView_image3data.setText(filename);
+                            }
+                        });
+                        Log.d("obj path",obj.getImage3Uri());
+                        break;
+                    }
+                    case 3: {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                textView_image4data.setText(filename);
+                            }
+                        });
+                        Log.d("obj path",obj.getImage4Uri());
+                        break;
+                    }
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

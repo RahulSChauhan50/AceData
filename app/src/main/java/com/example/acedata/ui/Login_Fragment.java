@@ -77,10 +77,7 @@ public class Login_Fragment extends Fragment {
                         public void onResponse(Call<FormData> call, retrofit2.Response<FormData> response) {
                             progressBar.setVisibility(View.GONE);
 
-                            if(response.code()==400){
-                                Toast.makeText(getActivity(),"Invalid credentials",Toast.LENGTH_SHORT).show();
-                            }
-                            else{
+                            if(response.code()==200){
                                 SharedPreferences.Editor ed=sharedPreferences.edit();
                                 ed.putString("Tokenvalue",response.body().getKey());
                                 ed.commit();
@@ -91,6 +88,9 @@ public class Login_Fragment extends Fragment {
                                 tr.commit();
 
                                 Log.d("key",response.body().getKey());
+                            }
+                            else{
+                                Toast.makeText(getActivity(),"Invalid credentials",Toast.LENGTH_SHORT).show();
                             }
                         }
 

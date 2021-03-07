@@ -9,10 +9,10 @@ public class FormData {
     String avatar2;
     String avatar3;
     String avatar4;
-    String image1Uri;
-    String image2Uri;
-    String image3Uri;
-    String image4Uri;
+    String image1Uri=null;
+    String image2Uri=null;
+    String image3Uri=null;
+    String image4Uri=null;
     String key;
 
     public String getImage1Uri() {

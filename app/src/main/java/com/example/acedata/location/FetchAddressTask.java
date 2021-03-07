@@ -20,12 +20,20 @@ public class FetchAddressTask extends AsyncTask<Location, Void, String> {
 
     private Context mContext;
     private OnTaskCompleted mListener;
+    ////
+    int currentImageNumber;
+    String currentPhotoPath;
+    ////
 
 
 
-    public FetchAddressTask(Context applicationContext, OnTaskCompleted listener) {
+    public FetchAddressTask(Context applicationContext, OnTaskCompleted listener,int currentFinalImageNumber,String currentFinalPhotoPath) {
         mContext = applicationContext;
         mListener = listener;
+        ///
+        this.currentImageNumber=currentFinalImageNumber;
+        this.currentPhotoPath=currentFinalPhotoPath;
+        //
     }
 
 
@@ -79,12 +87,12 @@ public class FetchAddressTask extends AsyncTask<Location, Void, String> {
 
     @Override
     protected void onPostExecute(String address) {
-        mListener.onTaskCompleted(address);
+        mListener.onTaskCompleted(address,this.currentImageNumber,this.currentPhotoPath);
         super.onPostExecute(address);
     }
 
     public interface OnTaskCompleted {
-        void onTaskCompleted(String result);
+        void onTaskCompleted(String result,int imageNumber,String photoPath);
     }
 
 }

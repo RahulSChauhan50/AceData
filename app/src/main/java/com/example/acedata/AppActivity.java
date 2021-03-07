@@ -201,13 +201,14 @@ public class AppActivity extends AppCompatActivity {
 
 
                 String Token = "Token 9dc7a0c191f9e74cbbd3fd15731a60bb23ee7073";
+                String url="https://baseloan.herokuapp.com/owner/343/";
                 RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getName());
                 RequestBody mobile_no = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getMobile_no());
                 RequestBody Address = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getAddress());
                 RequestBody adhar = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getAdhar());
 
 
-                Call<FormData> call = service.putData(Token,avatar1,avatar2,avatar3,avatar4, name, mobile_no,Address,adhar);
+                Call<FormData> call = service.putData(Token,avatar1,avatar2,avatar3,avatar4, name, mobile_no,Address,adhar,url);
 
                 /////calling notification////
                 mBuilder.setProgress(0, 0, true);

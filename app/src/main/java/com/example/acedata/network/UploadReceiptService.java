@@ -16,6 +16,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Part;
+import retrofit2.http.Url;
 
 public interface UploadReceiptService{
 
@@ -32,7 +33,7 @@ public interface UploadReceiptService{
     );
 
     @Multipart
-    @PUT("/owner/343/")
+    @PUT
     Call<FormData> putData(
             @Header("Authorization") String Token,
             @Part MultipartBody.Part file1,
@@ -42,7 +43,8 @@ public interface UploadReceiptService{
             @Part ("name") RequestBody name,
             @Part ("mobile_no") RequestBody mobile_no,
             @Part ("Address") RequestBody Address,
-            @Part ("adhar") RequestBody adhar
+            @Part ("adhar") RequestBody adhar,
+            @Url String url
 
     );
 }

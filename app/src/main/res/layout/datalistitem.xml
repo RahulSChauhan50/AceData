@@ -18,11 +18,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/list_uploaderror"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_baseline_error_outline_24" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/child_constraint"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:layout_weight="1">
 
             <LinearLayout
@@ -44,7 +51,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="NAME : "
-                        android:textColor="@color/black"
+                        android:textColor="@color/MintyGreenDark"
                         android:textSize="18sp" />
 
                     <TextView
@@ -53,7 +60,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="TextView"
-                        android:textColor="@color/black"
+                        android:textColor="@color/light_blue_900"
                         android:textSize="18sp" />
 
                 </LinearLayout>
@@ -68,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ADHAR : "
-                        android:textColor="@color/black"
+                        android:textColor="@color/MintyGreenDark"
                         android:textSize="18sp" />
 
                     <TextView
@@ -77,20 +84,12 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="TextView"
-                        android:textColor="@color/black"
+                        android:textColor="@color/light_blue_900"
                         android:textSize="18sp" />
                 </LinearLayout>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <ImageView
-            android:id="@+id/list_uploaderror"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/ic_baseline_error_outline_24" />
 
         <ImageView
             android:id="@+id/list_openitem"

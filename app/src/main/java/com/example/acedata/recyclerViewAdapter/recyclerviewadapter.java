@@ -1,6 +1,7 @@
 package com.example.acedata.recyclerViewAdapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
 
     private List<FormData> itemData;
     private Context context;
+    SharedPreferences sharedPreferences;
 
     public recyclerviewadapter(List<FormData> itemData, Context context) {
         this.itemData= itemData;
@@ -42,6 +44,7 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
     public recyclerviewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.datalistitem,parent,false);
         recyclerviewHolder holder=new recyclerviewHolder(view);
+        sharedPreferences=context.getSharedPreferences("Stored_objects",Context.MODE_PRIVATE);
         return holder;
     }
 
@@ -50,7 +53,14 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
         holder.name.setText(itemData.get(position).getName());
         holder.adhar.setText(itemData.get(position).getAdhar());
 
-        holder.list_uploaderror.setVisibility(View.INVISIBLE);
+        String savedObject=sharedPreferences.getString(itemData.get(position).getAdhar(),null);
+        if(savedObject!=null){
+            holder.list_uploaderror.setVisibility(View.VISIBLE);
+        }
+        else{
+            holder.list_uploaderror.setVisibility(View.INVISIBLE);
+        }
+
 
         holder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +95,7 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
         TextView name,adhar;
         ImageView list_uploaderror;
         ConstraintLayout parent;
+        SharedPreferences sharedobject;
 
         public recyclerviewHolder(@NonNull View itemView) {
             super(itemView);
@@ -93,7 +104,6 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
             adhar=itemView.findViewById(R.id.list_textviewadharvalue);
             list_uploaderror=itemView.findViewById(R.id.list_uploaderror);
             parent=itemView.findViewById(R.id.itemparent);
-
         }
     }
 }

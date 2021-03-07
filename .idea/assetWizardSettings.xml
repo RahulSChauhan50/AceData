@@ -294,11 +294,24 @@
                   <entry key="vectorAssetStep">
                     <value>
                       <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="clipartAsset">
+                              <value>
+                                <PersistentState>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/upload_file/baseline_upload_file_24.xml" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="color" value="00bfa5" />
-                            <entry key="outputName" value="ic_login_1" />
+                            <entry key="outputName" value="ic_baseline_upload_file_24" />
                             <entry key="sourceFile" value="E:\bank_project_icons\login(1).svg" />
                           </map>
                         </option>

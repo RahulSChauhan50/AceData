@@ -4,12 +4,16 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -33,16 +37,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.acedata.AppActivity;
 import com.example.acedata.FormData;
 import com.example.acedata.MainActivity;
 import com.example.acedata.R;
 import com.example.acedata.location.FetchAddressTask;
+import com.example.acedata.network.RetrofitClientInstance;
+import com.example.acedata.network.UploadReceiptService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -50,6 +59,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class Form2Fragment extends Fragment implements
         FetchAddressTask.OnTaskCompleted {
@@ -67,6 +82,11 @@ public class Form2Fragment extends Fragment implements
 
     Location mLastLocation;
     private FusedLocationProviderClient mFusedLocationClient;
+
+    SharedPreferences storeObjectShared;
+
+    NotificationManager mNotifyManager;
+    NotificationCompat.Builder mBuilder;
 
     String[] sampleimagesinfo;
     String mCurrentPhotoPath;
@@ -87,7 +107,16 @@ public class Form2Fragment extends Fragment implements
         textView_image3data = form2.findViewById(R.id.textViewimage3);
         textView_image4data = form2.findViewById(R.id.textViewimage4);
 
+        storeObjectShared=getActivity().getSharedPreferences("Stored_objects", Context.MODE_PRIVATE);
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+
+        mNotifyManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        mBuilder = new NotificationCompat.Builder(getContext(),"upload_data");
+        mBuilder.setContentTitle("File Upload")
+                .setContentText("Upload in progress")
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setSmallIcon(R.drawable.ic_baseline_upload_file_24);
 
         sampleimagesinfo = new String[4];
 
@@ -96,7 +125,6 @@ public class Form2Fragment extends Fragment implements
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
         ////receiving values from form1
         Bundle arguments = getArguments();
         String desired_string = arguments.getString("form2_pass");
@@ -104,6 +132,8 @@ public class Form2Fragment extends Fragment implements
         //converting string data back to object
         Gson gson = new Gson();
         obj = gson.fromJson(desired_string, FormData.class);
+
+        checkForPreviouslyStoredObjects();
 
         button_selectphoto1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,10 +168,55 @@ public class Form2Fragment extends Fragment implements
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //((AppActivity)getActivity()).Add_Form3(view);
+//                uploadThread thread=new uploadThread();
+//                thread.start();
+
+                ((AppActivity)getActivity()).uploadData_function(obj);
+
+                if(obj.getImage1Uri()!=null && obj.getImage2Uri()!=null && obj.getImage3Uri()!=null && obj.getImage4Uri()!=null){
+                    ((AppActivity)getActivity()).Add_Form3(view);
+                }
+
                 Log.d("form2", obj.getAddress() + " " + obj.getName() + " " + obj.getMobile_no() + " " + obj.getAdhar());
             }
         });
+    }
+
+    void checkForPreviouslyStoredObjects(){
+
+        String storedObj=storeObjectShared.getString(obj.getAdhar(),null);
+
+        if(storedObj!=null){
+            Gson gson = new Gson();
+            FormData myObj = gson.fromJson(storedObj, FormData.class);
+
+            File newFile;
+            if(myObj.getImage1Uri()!=null){
+                obj.setImage1Uri(myObj.getImage1Uri());
+                newFile=new File(myObj.getImage1Uri());
+                String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
+                textView_image1data.setText(filename);
+            }
+            if(myObj.getImage2Uri()!=null){
+                obj.setImage2Uri(myObj.getImage2Uri());
+                newFile=new File(myObj.getImage2Uri());
+                String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
+                textView_image2data.setText(filename);
+            }
+            if(myObj.getImage3Uri()!=null){
+                obj.setImage3Uri(myObj.getImage3Uri());
+                newFile=new File(myObj.getImage3Uri());
+                String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
+                textView_image3data.setText(filename);
+            }
+            if(myObj.getImage4Uri()!=null){
+                obj.setImage4Uri(myObj.getImage4Uri());
+                newFile=new File(myObj.getImage4Uri());
+                String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
+                textView_image4data.setText(filename);
+            }
+
+        }
     }
 
     void capture_function() {
@@ -423,4 +498,5 @@ public class Form2Fragment extends Fragment implements
             }
         }
     }
+
 }

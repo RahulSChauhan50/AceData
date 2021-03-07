@@ -14,21 +14,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 
 public interface UploadReceiptService{
-
-    @Multipart
-    @POST("/owner/")
-    Call<FormData> uploadReceipt(
-            @Header("Authorization") String Token,
-            @Part MultipartBody.Part file,
-            @Part ("name") RequestBody name,
-            @Part ("mobile_no") RequestBody mobile_no,
-            @Part ("Address") RequestBody Address,
-            @Part ("adhar") RequestBody adhar
-
-    );
 
     @GET("/owner/")
     Call<List<FormData>> getDataList(
@@ -40,5 +29,20 @@ public interface UploadReceiptService{
     Call<FormData> signin(
             @Field("username") String username,
             @Field ("password") String password
+    );
+
+    @Multipart
+    @PUT("/owner/343/")
+    Call<FormData> putData(
+            @Header("Authorization") String Token,
+            @Part MultipartBody.Part file1,
+            @Part MultipartBody.Part file2,
+            @Part MultipartBody.Part file3,
+            @Part MultipartBody.Part file4,
+            @Part ("name") RequestBody name,
+            @Part ("mobile_no") RequestBody mobile_no,
+            @Part ("Address") RequestBody Address,
+            @Part ("adhar") RequestBody adhar
+
     );
 }

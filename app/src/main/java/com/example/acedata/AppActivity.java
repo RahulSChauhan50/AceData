@@ -3,10 +3,13 @@ package com.example.acedata;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -45,6 +48,7 @@ public class AppActivity extends AppCompatActivity {
     SharedPreferences storeObjectShared;
     NotificationManager mNotifyManager;
     NotificationCompat.Builder mBuilder;
+    NotificationChannel upload_notification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +60,19 @@ public class AppActivity extends AppCompatActivity {
         sharedPreferences=getSharedPreferences("login_data",MODE_PRIVATE);
 
         storeObjectShared=getSharedPreferences("Stored_objects", Context.MODE_PRIVATE);
+
+        //https://developer.android.com/training/notify-user/channels
         mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mBuilder = new NotificationCompat.Builder(AppActivity.this,"upload_data");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            upload_notification=new NotificationChannel("upload_channel","UPLOAD NOTIFICATION",NotificationManager.IMPORTANCE_DEFAULT);
+            upload_notification.setLightColor(Color.GREEN);
+            mNotifyManager.createNotificationChannel(upload_notification);
+        }
+
+        mBuilder = new NotificationCompat.Builder(AppActivity.this,"upload_channel");
         mBuilder.setContentTitle("File Upload")
                 .setContentText("Upload in progress")
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                //.setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setSmallIcon(R.drawable.ic_baseline_upload_file_24);
 
         if (savedInstanceState == null) {
@@ -213,7 +225,7 @@ public class AppActivity extends AppCompatActivity {
                 /////calling notification////
                 mBuilder.setProgress(0, 0, true);
                 // Displays the progress bar for the first time.
-                mNotifyManager.notify(0, mBuilder.build());
+                mNotifyManager.notify(1, mBuilder.build());
 
 
                 call.enqueue(new Callback<FormData>() {

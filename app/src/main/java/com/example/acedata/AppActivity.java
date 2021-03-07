@@ -62,6 +62,7 @@ public class AppActivity extends AppCompatActivity {
         storeObjectShared=getSharedPreferences("Stored_objects", Context.MODE_PRIVATE);
 
         //https://developer.android.com/training/notify-user/channels
+        //https://stuff.mit.edu/afs/sipb/project/android/docs/training/notify-user/display-progress.html
         mNotifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             upload_notification=new NotificationChannel("upload_channel","UPLOAD NOTIFICATION",NotificationManager.IMPORTANCE_DEFAULT);

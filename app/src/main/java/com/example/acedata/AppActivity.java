@@ -1,8 +1,6 @@
 package com.example.acedata;
 
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -213,8 +211,8 @@ public class AppActivity extends AppCompatActivity {
                         MultipartBody.Part.createFormData("avatar4", image4File.getName(), requestFile4);
 
 
-                String Token = "Token 9dc7a0c191f9e74cbbd3fd15731a60bb23ee7073";
-                String url="https://baseloan.herokuapp.com/owner/343/";
+                String Token ="Token "+sharedPreferences.getString("Tokenvalue",null);
+                String url="https://baseloan.herokuapp.com/owner/"+obj.getAdhar()+"/";
                 RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getName());
                 RequestBody mobile_no = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getMobile_no());
                 RequestBody Address = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getAddress());
@@ -224,7 +222,9 @@ public class AppActivity extends AppCompatActivity {
                 Call<FormData> call = service.putData(Token,avatar1,avatar2,avatar3,avatar4, name, mobile_no,Address,adhar,url);
 
                 /////calling notification////
-                mBuilder.setProgress(0, 0, true);
+                mBuilder
+                        .setContentText("Upload in progress")
+                        .setProgress(0, 0, true);
                 // Displays the progress bar for the first time.
                 mNotifyManager.notify(1, mBuilder.build());
 
@@ -234,7 +234,7 @@ public class AppActivity extends AppCompatActivity {
                     public void onResponse(Call<FormData> call, retrofit2.Response<FormData> response) {
 
                         if(response.code()==200){
-                            Log.d("Upload Successfull",response.message()+" "+String.valueOf(response.code()));
+                           // Log.d("Upload Successfull",response.message()+" "+String.valueOf(response.code()));
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -270,7 +270,7 @@ public class AppActivity extends AppCompatActivity {
                             ed.putString(obj.getAdhar(),object_pass);
                             ed.commit();
 
-                            Log.d("Upload error",response.message()+" "+String.valueOf(response.code()));
+                           // Log.d("Upload error",response.message()+" "+String.valueOf(response.code()));
 
                             ///stopping notification////
                             mBuilder.setContentText("Upload error")
@@ -297,7 +297,7 @@ public class AppActivity extends AppCompatActivity {
                         ed.putString(obj.getAdhar(),object_pass);
                         ed.commit();
 
-                        Log.d("error",t.getMessage());
+                       // Log.d("error",t.getMessage());
 
                         ///stopping notification////
                         mBuilder.setContentText("Upload error")

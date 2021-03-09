@@ -2,14 +2,12 @@ package com.example.acedata.recyclerViewAdapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +21,6 @@ import com.example.acedata.R;
 import com.example.acedata.ui.formScreens.Form1Fragment;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapter.recyclerviewHolder>{

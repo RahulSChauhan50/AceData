@@ -4,13 +4,11 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,19 +37,14 @@ import androidx.annotation.Nullable;
 
 import com.example.acedata.AppActivity;
 import com.example.acedata.FormData;
-import com.example.acedata.MainActivity;
 import com.example.acedata.R;
 import com.example.acedata.location.FetchAddressTask;
-import com.example.acedata.network.RetrofitClientInstance;
-import com.example.acedata.network.UploadReceiptService;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -59,12 +52,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class Form2Fragment extends Fragment implements
         FetchAddressTask.OnTaskCompleted {
@@ -168,7 +155,7 @@ public class Form2Fragment extends Fragment implements
                     ((AppActivity)getActivity()).Add_Form3(view);
                 }
 
-                Log.d("form2", obj.getAddress() + " " + obj.getName() + " " + obj.getMobile_no() + " " + obj.getAdhar());
+               // Log.d("form2", obj.getAddress() + " " + obj.getName() + " " + obj.getMobile_no() + " " + obj.getAdhar());
             }
         });
     }
@@ -284,12 +271,12 @@ public class Form2Fragment extends Fragment implements
                     @Override
                     public void onSuccess(Location location) {
                         if (location != null) {
-                            Log.d("coordinates", String.valueOf(location.getLongitude()) + " " + String.valueOf(location.getLatitude()));
+                           // Log.d("coordinates", String.valueOf(location.getLongitude()) + " " + String.valueOf(location.getLatitude()));
                             mLastLocation = location;
                             new FetchAddressTask(getContext(),
                                     Form2Fragment.this,currentFinalImageNumber,currentFinalPhotoPath).execute(location);
                         } else {
-                            Log.d("location", "location is null");
+                           // Log.d("location", "location is null");
                             Toast.makeText(getContext(),"Failed to fetch location \nCheck if GPS is turned on",Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -297,7 +284,7 @@ public class Form2Fragment extends Fragment implements
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("failed", e.toString());
+                       // Log.d("failed", e.toString());
                         Toast.makeText(getContext(),"Failed to fetch location \nCheck if GPS is turned on",Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -307,8 +294,8 @@ public class Form2Fragment extends Fragment implements
 
     @Override
     public void onTaskCompleted(String result,int currentImageNumber,String currentPhotoPath) {
-        Log.d("current address", result);
-        Log.d("imagenumber", String.valueOf(currentImageNumber)+" "+currentPhotoPath);
+        //Log.d("current address", result);
+       // Log.d("imagenumber", String.valueOf(currentImageNumber)+" "+currentPhotoPath);
 
         watermarkThread thread=new watermarkThread(currentImageNumber,currentPhotoPath,result);
         thread.start();
@@ -447,7 +434,7 @@ public class Form2Fragment extends Fragment implements
                             }
                         });
 
-                        Log.d("obj path",obj.getImage1Uri());
+                        //Log.d("obj path",obj.getImage1Uri());
                         break;
                     }
 
@@ -458,7 +445,7 @@ public class Form2Fragment extends Fragment implements
                                 textView_image2data.setText(filename);
                             }
                         });
-                        Log.d("obj path",obj.getImage2Uri());
+                       // Log.d("obj path",obj.getImage2Uri());
                         break;
                     }
 
@@ -469,7 +456,7 @@ public class Form2Fragment extends Fragment implements
                                 textView_image3data.setText(filename);
                             }
                         });
-                        Log.d("obj path",obj.getImage3Uri());
+                       // Log.d("obj path",obj.getImage3Uri());
                         break;
                     }
                     case 3: {
@@ -479,7 +466,7 @@ public class Form2Fragment extends Fragment implements
                                 textView_image4data.setText(filename);
                             }
                         });
-                        Log.d("obj path",obj.getImage4Uri());
+                        //Log.d("obj path",obj.getImage4Uri());
                         break;
                     }
                 }

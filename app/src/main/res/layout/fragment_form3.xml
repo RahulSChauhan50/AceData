@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/submit_gif"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:id="@+id/submit_gif"
         android:background="@color/black"
         android:src="@drawable/animated_check"
         android:visibility="gone"
@@ -26,6 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,8 +65,6 @@
                     android:id="@+id/question1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="13dp"
                     android:text="Q1.   What is your name ?"
@@ -115,8 +113,6 @@
                     android:hint="Write your answer here"
                     android:inputType="textMultiLine"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="10dp"
-                    android:textSize="20sp" />
                     android:paddingVertical="10dp"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -294,32 +290,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/layout7">
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/back_to_form2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="52dp"
-                   android:layout_weight="1"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="40dp"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/teal_200"
                     android:fontFamily="@font/audiowide"
                     android:text="prev"
                     android:textSize="24sp"
                     app:cornerRadius="15dp" />
+
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/submit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_weight="1"
                     android:layout_marginTop="52dp"
                     android:layout_marginBottom="40dp"
+                    android:layout_weight="1"
                     android:backgroundTint="@color/teal_200"
                     android:fontFamily="@font/audiowide"
                     android:text="Submit"
-                android:textSize="24sp"
-                app:cornerRadius="15dp" />
+                    android:textSize="24sp"
+                    app:cornerRadius="15dp" />
 
 
             </LinearLayout>

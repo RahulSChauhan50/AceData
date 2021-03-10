@@ -48,6 +48,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.gson.Gson;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -179,27 +180,43 @@ public class Form2Fragment extends Fragment implements
             File newFile;
             if(myObj.getImage1Uri()!=null){
                 obj.setImage1Uri(myObj.getImage1Uri());
-                newFile=new File(myObj.getImage1Uri());
-                String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
-                textView_image1data.setText(filename);
+                try {
+                    newFile=new File(myObj.getImage1Uri());
+                    String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
+                    textView_image1data.setText(filename);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             if(myObj.getImage2Uri()!=null){
                 obj.setImage2Uri(myObj.getImage2Uri());
-                newFile=new File(myObj.getImage2Uri());
-                String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
-                textView_image2data.setText(filename);
+                try {
+                    newFile=new File(myObj.getImage2Uri());
+                    String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
+                    textView_image2data.setText(filename);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             if(myObj.getImage3Uri()!=null){
                 obj.setImage3Uri(myObj.getImage3Uri());
-                newFile=new File(myObj.getImage3Uri());
-                String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
-                textView_image3data.setText(filename);
+                try {
+                    newFile=new File(myObj.getImage3Uri());
+                    String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
+                    textView_image3data.setText(filename);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             if(myObj.getImage4Uri()!=null){
                 obj.setImage4Uri(myObj.getImage4Uri());
-                newFile=new File(myObj.getImage4Uri());
-                String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
-                textView_image4data.setText(filename);
+                try {
+                    newFile=new File(myObj.getImage4Uri());
+                    String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
+                    textView_image4data.setText(filename);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
         }
@@ -248,7 +265,7 @@ public class Form2Fragment extends Fragment implements
         );
 
         // Save a file: path for use with ACTION_VIEW intents
-        Form2Fragment.this.mCurrentPhotoPath = image.getAbsolutePath();
+        mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
 
@@ -305,11 +322,11 @@ public class Form2Fragment extends Fragment implements
         //Log.d("current address", result);
        // Log.d("imagenumber", String.valueOf(currentImageNumber)+" "+currentPhotoPath);
 
-        watermarkThread thread=new watermarkThread(currentImageNumber,currentPhotoPath,result);
-        thread.start();
+        new Thread(new watermarkThread(currentImageNumber,currentPhotoPath,result)).start();
     }
 
-    class watermarkThread extends Thread{
+    class watermarkThread implements Runnable{
+
         int currentImageNumber;
         String currentPhotoPath;
         String address;
@@ -322,19 +339,24 @@ public class Form2Fragment extends Fragment implements
 
         @Override
         public void run() {
-
-            //Uri uri = data.getData();
-            File file = new File(currentPhotoPath);
             try {
+                //Uri uri = data.getData();
+                File file = new File(currentPhotoPath);
+
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), Uri.fromFile(file));
 
-                Bitmap bmpWithBorder = Bitmap.createBitmap(bitmap.getWidth() , bitmap.getHeight() + 300 * 2, bitmap.getConfig());
+                Bitmap bmpWithBorder = null;
+                try {
+                    bmpWithBorder = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight() + 300 * 2, bitmap.getConfig());
+                } catch (OutOfMemoryError e) {
+                    e.printStackTrace();
+                }
                 Canvas canvas = new Canvas(bmpWithBorder);
                 canvas.drawColor(Color.WHITE);
-                canvas.drawBitmap(bitmap, 0,0, null);
+                canvas.drawBitmap(bitmap, 0, 0, null);
 
                 // new antialiased Paint
-                TextPaint paint=new TextPaint(Paint.ANTI_ALIAS_FLAG);
+                TextPaint paint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
                 // text color - #3D3D3D
                 paint.setColor(Color.BLACK);
                 // text size in pixels
@@ -345,15 +367,15 @@ public class Form2Fragment extends Fragment implements
                 // set text width to canvas width
                 int textWidth = canvas.getWidth() - 50;
                 ///////////////////text//////////
-                String gText=address;
+                String gText = address;
                 // init StaticLayout for text
                 StaticLayout textLayout = new StaticLayout(
                         gText, paint, textWidth, Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
 
 
                 // get position of text's top left corner
-                float x = (bmpWithBorder.getWidth() - textWidth)/2;
-                float y = bitmap.getHeight()+50;
+                float x = (bmpWithBorder.getWidth() - textWidth) / 2;
+                float y = bitmap.getHeight() + 50;
 
                 // draw text to the Canvas
                 canvas.save();
@@ -375,20 +397,20 @@ public class Form2Fragment extends Fragment implements
                 );
 
                 //getting path of compressed image///////
-                switch (currentImageNumber){
-                    case 0:{
+                switch (currentImageNumber) {
+                    case 0: {
                         obj.setImage1Uri(imagecompress.getAbsolutePath());
                         break;
                     }
-                    case 1:{
+                    case 1: {
                         obj.setImage2Uri(imagecompress.getAbsolutePath());
                         break;
                     }
-                    case 2:{
+                    case 2: {
                         obj.setImage3Uri(imagecompress.getAbsolutePath());
                         break;
                     }
-                    case 3:{
+                    case 3: {
                         obj.setImage4Uri(imagecompress.getAbsolutePath());
                         break;
                     }
@@ -405,23 +427,39 @@ public class Form2Fragment extends Fragment implements
                 /////////////////////////////////
 
                 /////fetching file info////
-                File tempCompressedFile;
+                File tempCompressedFile = null;
 
-                switch (currentImageNumber){
-                    case 0:{
-                        tempCompressedFile=new File(obj.getImage1Uri());
+                switch (currentImageNumber) {
+                    case 0: {
+                        try {
+                            tempCompressedFile = new File(obj.getImage1Uri());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         break;
                     }
-                    case 1:{
-                        tempCompressedFile=new File(obj.getImage2Uri());
+                    case 1: {
+                        try {
+                            tempCompressedFile = new File(obj.getImage2Uri());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         break;
                     }
-                    case 2:{
-                        tempCompressedFile=new File(obj.getImage3Uri());
+                    case 2: {
+                        try {
+                            tempCompressedFile = new File(obj.getImage3Uri());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         break;
                     }
-                    case 3:{
-                        tempCompressedFile=new File(obj.getImage4Uri());
+                    case 3: {
+                        try {
+                            tempCompressedFile = new File(obj.getImage4Uri());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         break;
                     }
 
@@ -429,16 +467,26 @@ public class Form2Fragment extends Fragment implements
                         throw new IllegalStateException("Unexpected value: " + currentImageNumber);
                 }
 
-                sampleimagesinfo[currentImageNumber] = tempCompressedFile.getName() ;
-                String filename=tempCompressedFile.getName() + "\n" + String.valueOf(tempCompressedFile.length() / 1000) + " KB";
+
+                String filename = null;
+                try {
+                    sampleimagesinfo[currentImageNumber] = tempCompressedFile.getName();
+                    filename = tempCompressedFile.getName() + "\n" + String.valueOf(tempCompressedFile.length() / 1000) + " KB";
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 //////////////////////////
 
                 switch (currentImageNumber) {
                     case 0: {
+                        String finalFilename = filename;
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                textView_image1data.setText(filename);
+                                if (finalFilename != null) {
+                                    textView_image1data.setText(finalFilename);
+                                }
                             }
                         });
 
@@ -447,31 +495,40 @@ public class Form2Fragment extends Fragment implements
                     }
 
                     case 1: {
+                        String finalFilename1 = filename;
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                textView_image2data.setText(filename);
+                                if (finalFilename1 != null) {
+                                    textView_image2data.setText(finalFilename1);
+                                }
                             }
                         });
-                       // Log.d("obj path",obj.getImage2Uri());
+                        // Log.d("obj path",obj.getImage2Uri());
                         break;
                     }
 
                     case 2: {
+                        String finalFilename2 = filename;
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                textView_image3data.setText(filename);
+                                if (finalFilename2 != null) {
+                                    textView_image3data.setText(finalFilename2);
+                                }
                             }
                         });
-                       // Log.d("obj path",obj.getImage3Uri());
+                        // Log.d("obj path",obj.getImage3Uri());
                         break;
                     }
                     case 3: {
+                        String finalFilename3 = filename;
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                textView_image4data.setText(filename);
+                                if (finalFilename3 != null) {
+                                    textView_image4data.setText(finalFilename3);
+                                }
                             }
                         });
                         //Log.d("obj path",obj.getImage4Uri());
@@ -479,7 +536,7 @@ public class Form2Fragment extends Fragment implements
                     }
                 }
 
-            } catch (IOException e) {
+            } catch (IOException | NullPointerException | OutOfMemoryError e) {
                 e.printStackTrace();
             }
         }

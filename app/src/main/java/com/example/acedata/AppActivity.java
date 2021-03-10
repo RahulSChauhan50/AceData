@@ -153,36 +153,43 @@ public class AppActivity extends AppCompatActivity {
     }
 
     public void uploadData_function(FormData passesObj){
-        uploadThread thread=new uploadThread(passesObj);
-        thread.start();
+
+        new Thread(new uploadThread(passesObj)).start();
     }
 
-    public class uploadThread extends Thread{
-
+    public class uploadThread implements Runnable {
         FormData obj;
 
         public uploadThread(FormData objPassed) {
-            this.obj=objPassed;
+            this.obj = objPassed;
         }
 
         @Override
         public void run() {
-            if(obj.getImage1Uri()==null || obj.getImage2Uri()==null || obj.getImage3Uri()==null || obj.getImage4Uri()==null){
+
+            if (obj.getImage1Uri() == null || obj.getImage2Uri() == null || obj.getImage3Uri() == null || obj.getImage4Uri() == null) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(AppActivity.this,"Please select all the images",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AppActivity.this, "Please select all the images", Toast.LENGTH_SHORT).show();
                     }
                 });
-            }
-            else{
+            } else {
 
                 UploadReceiptService service = RetrofitClientInstance.getRetrofitInstance().create(UploadReceiptService.class);
 
-                File image1File = new File(obj.getImage1Uri());
-                File image2File = new File(obj.getImage2Uri());
-                File image3File = new File(obj.getImage3Uri());
-                File image4File = new File(obj.getImage4Uri());
+                File image1File = null;
+                File image2File = null;
+                File image3File = null;
+                File image4File = null;
+                try {
+                    image1File = new File(obj.getImage1Uri());
+                    image2File = new File(obj.getImage2Uri());
+                    image3File = new File(obj.getImage3Uri());
+                    image4File = new File(obj.getImage4Uri());
+                } catch (Exception | OutOfMemoryError e) {
+                    e.printStackTrace();
+                }
 
                 RequestBody requestFile1 =
                         RequestBody.create(
@@ -216,15 +223,15 @@ public class AppActivity extends AppCompatActivity {
                         MultipartBody.Part.createFormData("avatar4", image4File.getName(), requestFile4);
 
 
-                String Token ="Token "+sharedPreferences.getString("Tokenvalue",null);
-                String url="https://baseloan.herokuapp.com/owner/"+obj.getAdhar()+"/";
+                String Token = "Token " + sharedPreferences.getString("Tokenvalue", null);
+                String url = "https://baseloan.herokuapp.com/owner/" + obj.getAdhar() + "/";
                 RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getName());
                 RequestBody mobile_no = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getMobile_no());
                 RequestBody Address = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getAddress());
                 RequestBody adhar = RequestBody.create(MediaType.parse("multipart/form-data"), obj.getAdhar());
 
 
-                Call<FormData> call = service.putData(Token,avatar1,avatar2,avatar3,avatar4, name, mobile_no,Address,adhar,url);
+                Call<FormData> call = service.putData(Token, avatar1, avatar2, avatar3, avatar4, name, mobile_no, Address, adhar, url);
 
                 /////calling notification////
                 mBuilder
@@ -238,49 +245,48 @@ public class AppActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<FormData> call, retrofit2.Response<FormData> response) {
 
-                        if(response.code()==200){
-                           // Log.d("Upload Successfull",response.message()+" "+String.valueOf(response.code()));
+                        if (response.code() == 200) {
+                            // Log.d("Upload Successfull",response.message()+" "+String.valueOf(response.code()));
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Snackbar.make(parentView_appActivity,"Successfully Uploaded", Snackbar.LENGTH_SHORT).show();
+                                    Snackbar.make(parentView_appActivity, "Successfully Uploaded", Snackbar.LENGTH_SHORT).show();
                                 }
                             });
 
 
-                            SharedPreferences.Editor ed=storeObjectShared.edit();
+                            SharedPreferences.Editor ed = storeObjectShared.edit();
                             ed.remove(obj.getAdhar());
                             ed.apply();
 
                             ///stopping notification////
                             mBuilder.setContentText("Upload complete")
                                     // Removes the progress bar
-                                    .setProgress(0,0,false);
+                                    .setProgress(0, 0, false);
                             mNotifyManager.notify(1, mBuilder.build());
 
 
-                        }
-                        else{
+                        } else {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Snackbar.make(parentView_appActivity,"Error uploading data!", Snackbar.LENGTH_SHORT).show();
+                                    Snackbar.make(parentView_appActivity, "Error uploading data!", Snackbar.LENGTH_SHORT).show();
                                 }
                             });
 
                             Gson gson = new Gson();
                             String object_pass = gson.toJson(obj);
 
-                            SharedPreferences.Editor ed=storeObjectShared.edit();
-                            ed.putString(obj.getAdhar(),object_pass);
+                            SharedPreferences.Editor ed = storeObjectShared.edit();
+                            ed.putString(obj.getAdhar(), object_pass);
                             ed.commit();
 
-                           // Log.d("Upload error",response.message()+" "+String.valueOf(response.code()));
+                            // Log.d("Upload error",response.message()+" "+String.valueOf(response.code()));
 
                             ///stopping notification////
                             mBuilder.setContentText("Upload error")
                                     // Removes the progress bar
-                                    .setProgress(0,0,false);
+                                    .setProgress(0, 0, false);
                             mNotifyManager.notify(1, mBuilder.build());
                         }
 
@@ -291,23 +297,23 @@ public class AppActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Snackbar.make(parentView_appActivity,"Network error!", Snackbar.LENGTH_SHORT).show();
+                                Snackbar.make(parentView_appActivity, "Network error!", Snackbar.LENGTH_SHORT).show();
                             }
                         });
 
                         Gson gson = new Gson();
                         String object_pass = gson.toJson(obj);
 
-                        SharedPreferences.Editor ed=storeObjectShared.edit();
-                        ed.putString(obj.getAdhar(),object_pass);
+                        SharedPreferences.Editor ed = storeObjectShared.edit();
+                        ed.putString(obj.getAdhar(), object_pass);
                         ed.commit();
 
-                       // Log.d("error",t.getMessage());
+                        // Log.d("error",t.getMessage());
 
                         ///stopping notification////
                         mBuilder.setContentText("Upload error")
                                 // Removes the progress bar
-                                .setProgress(0,0,false);
+                                .setProgress(0, 0, false);
                         mNotifyManager.notify(1, mBuilder.build());
                     }
                 });

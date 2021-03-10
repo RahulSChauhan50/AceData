@@ -15,7 +15,7 @@
        android:layout_marginTop="72dp"
        android:src="@drawable/ic_smartphone_message_2_"
        app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintHorizontal_bias="0.498"
+       app:layout_constraintHorizontal_bias="0.5"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +27,7 @@
        android:fontFamily="@font/aldrich"
        android:text="Pin Generation "
        android:textColor="@color/black"
-       android:textSize="30dp"
+       android:textSize="30sp"
        android:textStyle="bold"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
           android:fontFamily="@font/aldrich"
           android:text="Set Your Pin"
           android:textColor="@color/black"
-          android:textSize="24dp" />
+          android:textSize="24sp" />
 
       <LinearLayout
           android:layout_width="wrap_content"
@@ -64,30 +64,28 @@
              android:id="@+id/first_Number"
              android:layout_width="60dp"
              android:layout_height="60dp"
-             android:layout_marginLeft="10dp"
+             android:layout_marginStart="10dp"
              android:layout_weight="1"
              android:background="@drawable/box"
              android:focusable="true"
              android:gravity="center"
-             android:inputType="number"
+             android:inputType="numberPassword"
              android:maxLength="1"
-             android:password="true"
              android:textColor="#000"
-             android:textSize="30dp"
+             android:textSize="30sp"
              android:textStyle="bold" />
 
          <EditText
              android:id="@+id/second_Number"
              android:layout_width="60dp"
              android:layout_height="60dp"
-             android:layout_marginLeft="10dp"
+             android:layout_marginStart="10dp"
              android:layout_weight="1"
              android:background="@drawable/box"
              android:focusable="true"
              android:gravity="center"
-             android:inputType="number"
+             android:inputType="numberPassword"
              android:maxLength="1"
-             android:password="true"
              android:textColor="#000"
              android:textSize="30dp"
              android:textStyle="bold" />
@@ -96,38 +94,34 @@
              android:id="@+id/third_Number"
              android:layout_width="60dp"
              android:layout_height="60dp"
-             android:layout_marginLeft="10dp"
+             android:layout_marginStart="10dp"
              android:layout_weight="1"
              android:background="@drawable/box"
              android:focusable="true"
              android:gravity="center"
-             android:inputType="number"
+             android:inputType="numberPassword"
              android:maxLength="1"
-             android:password="true"
              android:textColor="#000"
              android:textSize="30dp"
-             android:textStyle="bold"
 
 
-             />
+             android:textStyle="bold" />
 
          <EditText
              android:id="@+id/fourth_Number"
              android:layout_width="60dp"
              android:layout_height="60dp"
-             android:layout_marginLeft="10dp"
+             android:layout_marginStart="10dp"
              android:layout_weight="1"
              android:background="@drawable/box"
              android:focusable="true"
              android:gravity="center"
-             android:inputType="number"
+             android:inputType="numberPassword"
              android:maxLength="1"
-             android:password="true"
              android:textColor="#000"
              android:textSize="30dp"
-             android:textStyle="bold"
 
-             />
+             android:textStyle="bold" />
       </LinearLayout>
    </LinearLayout>
 
@@ -164,14 +158,13 @@
              android:id="@+id/first_C_Number"
              android:layout_width="60dp"
              android:layout_height="60dp"
-             android:layout_marginLeft="10dp"
+             android:layout_marginStart="10dp"
              android:layout_weight="1"
              android:background="@drawable/box"
              android:focusable="true"
              android:gravity="center"
-             android:inputType="number"
+             android:inputType="numberPassword"
              android:maxLength="1"
-             android:password="true"
              android:textColor="#000"
              android:textSize="30dp"
              android:textStyle="bold" />
@@ -180,14 +173,13 @@
              android:id="@+id/second_C_Number"
              android:layout_width="60dp"
              android:layout_height="60dp"
-             android:layout_marginLeft="10dp"
+             android:layout_marginStart="10dp"
              android:layout_weight="1"
              android:background="@drawable/box"
              android:focusable="true"
              android:gravity="center"
-             android:inputType="number"
+             android:inputType="numberPassword"
              android:maxLength="1"
-             android:password="true"
              android:textColor="#000"
              android:textSize="30dp"
              android:textStyle="bold" />
@@ -196,14 +188,13 @@
              android:id="@+id/third_C_Number"
              android:layout_width="60dp"
              android:layout_height="60dp"
-             android:layout_marginLeft="10dp"
+             android:layout_marginStart="10dp"
              android:layout_weight="1"
              android:background="@drawable/box"
              android:focusable="true"
              android:gravity="center"
-             android:inputType="number"
+             android:inputType="numberPassword"
              android:maxLength="1"
-             android:password="true"
              android:textColor="#000"
              android:textSize="30dp"
              android:textStyle="bold" />
@@ -212,19 +203,17 @@
              android:id="@+id/fourth_C_Number"
              android:layout_width="60dp"
              android:layout_height="60dp"
-             android:layout_marginLeft="10dp"
+             android:layout_marginStart="10dp"
              android:layout_weight="1"
              android:background="@drawable/box"
              android:focusable="true"
              android:gravity="center"
-             android:inputType="number"
+             android:inputType="numberPassword"
              android:maxLength="1"
-             android:password="true"
              android:textColor="#000"
              android:textSize="30dp"
-             android:textStyle="bold"
 
-             />
+             android:textStyle="bold" />
       </LinearLayout>
    </LinearLayout>
 
@@ -233,12 +222,12 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_gravity="bottom"
-       android:layout_marginTop="50dp"
        android:layout_marginHorizontal="20dp"
+       android:layout_marginTop="50dp"
        android:backgroundTint="@color/purple_700"
-       android:text="Set"
        android:fontFamily="@font/aldrich"
-       android:textSize="24dp"
+       android:text="Set"
+       android:textSize="24sp"
        app:cornerRadius="15dp"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"

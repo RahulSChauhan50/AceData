@@ -83,7 +83,7 @@ public class Form2Fragment extends Fragment implements
         View form2 = inflater.inflate(R.layout.fragment_form2, container, false);
 
         btn_next = form2.findViewById(R.id.open);
-        btn_back = form2.findViewById(R.id.back);
+        btn_back = form2.findViewById(R.id.prev);
         button_selectphoto1 = form2.findViewById(R.id.buttonimage1);
         button_selectphoto2 = form2.findViewById(R.id.buttonimage2);
         button_selectphoto3 = form2.findViewById(R.id.buttonimage3);
@@ -162,7 +162,8 @@ public class Form2Fragment extends Fragment implements
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AppActivity)getActivity()).Add_Form1(view);
+               ((AppActivity)getActivity()).Add_Form1(view);
+
             }
         });
     }

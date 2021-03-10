@@ -80,7 +80,13 @@ public class AppActivity extends AppCompatActivity {
                     .commit();
         }
     }
+  public  void Add_Datalist(View view){
+      getSupportFragmentManager().beginTransaction()
+              .setReorderingAllowed(true)
+              .replace(R.id.fragment_container_appactivity, DatalistFragment.class, null)
+              .commit();
 
+  }
     public void Add_Form1(View view) {
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)

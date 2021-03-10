@@ -32,7 +32,7 @@
                 android:gravity="center_horizontal"
                 android:text="Answer the following questuions"
                 android:textColor="@color/black"
-                android:textSize="30dp"
+                android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,13 +54,11 @@
                     android:id="@+id/question1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="13dp"
                     android:text="Q1.   What is your name ?"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/answer1"
@@ -72,7 +70,7 @@
                     android:inputType="textMultiLine"
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="10dp"
-                    android:textSize="20dp" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -93,19 +91,19 @@
                     android:layout_height="wrap_content"
                     android:text="Q2.   What is your height ?"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/answer2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:textSize="20dp"
                     android:background="@drawable/box_textinput"
                     android:hint="Write your answer here"
                     android:inputType="textMultiLine"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="10dp" />
+                    android:paddingVertical="10dp"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,19 +124,19 @@
                     android:layout_height="wrap_content"
                     android:text="Q3.   What is your name ?"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/answer3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:textSize="20dp"
                     android:background="@drawable/box_textinput"
                     android:hint="Write your answer here"
                     android:inputType="textMultiLine"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="10dp" />
+                    android:paddingVertical="10dp"
+                    android:textSize="20sp" />
             </LinearLayout>
 
 
@@ -160,19 +158,19 @@
                     android:layout_height="wrap_content"
                     android:text="Q4.   What is your name ?"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/answer4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:textSize="20dp"
                     android:background="@drawable/box_textinput"
                     android:hint="Write your answer here"
                     android:inputType="textMultiLine"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="10dp" />
+                    android:paddingVertical="10dp"
+                    android:textSize="20sp" />
             </LinearLayout>
 
 
@@ -194,19 +192,19 @@
                     android:layout_height="wrap_content"
                     android:text="Q5.   What is your name ?"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/answer5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:textSize="20dp"
                     android:background="@drawable/box_textinput"
                     android:hint="Write your answer here"
                     android:inputType="textMultiLine"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="10dp" />
+                    android:paddingVertical="10dp"
+                    android:textSize="20sp" />
             </LinearLayout>
 
 
@@ -228,19 +226,19 @@
                     android:layout_height="wrap_content"
                     android:text="Q6.   What is your name ?"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/answer6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:textSize="20dp"
                     android:background="@drawable/box_textinput"
                     android:hint="Write your answer here"
                     android:inputType="textMultiLine"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="10dp" />
+                    android:paddingVertical="10dp"
+                    android:textSize="20sp" />
             </LinearLayout>
 
 
@@ -262,19 +260,19 @@
                     android:layout_height="wrap_content"
                     android:text="Q7.   What is your name ?"
                     android:textColor="@color/black"
-                    android:textSize="24dp" />
+                    android:textSize="24sp" />
 
                 <EditText
                     android:id="@+id/answer7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:textSize="20dp"
                     android:background="@drawable/box_textinput"
                     android:hint="Write your answer here"
                     android:inputType="textMultiLine"
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="10dp" />
+                    android:paddingVertical="10dp"
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
@@ -282,8 +280,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout7"
-                app:cornerRadius="15dp"
-                android:fontFamily="@font/audiowide"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginStart="20dp"
@@ -291,8 +287,10 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="40dp"
                 android:backgroundTint="@color/teal_200"
+                android:fontFamily="@font/audiowide"
                 android:text="Submit"
-                android:textSize="24dp" />
+                android:textSize="24sp"
+                app:cornerRadius="15dp" />
 
         </RelativeLayout>
     </ScrollView>

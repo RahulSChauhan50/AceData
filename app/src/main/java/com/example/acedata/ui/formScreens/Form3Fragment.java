@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +19,7 @@ import pl.droidsonroids.gif.GifImageView;
 
 public class Form3Fragment extends Fragment {
     Button btn_submit;
-    GifImageView gif;
+    GifImageView gif_layout;
     Handler handler;
     @Nullable
     @Override
@@ -26,7 +27,7 @@ public class Form3Fragment extends Fragment {
         View myView =  inflater.inflate(R.layout.fragment_form3,container,false);
 
         btn_submit = myView.findViewById(R.id.submit);
-        gif = myView.findViewById(R.id.submit_gif);
+        gif_layout = myView.findViewById(R.id.submit_gif);
         return  myView;
     }
 
@@ -37,7 +38,7 @@ public class Form3Fragment extends Fragment {
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gif.setVisibility(View.VISIBLE);
+                gif_layout.setVisibility(View.VISIBLE);
 
                 handler = new Handler();
                 Runnable r = new Runnable() {
@@ -46,7 +47,7 @@ public class Form3Fragment extends Fragment {
 
                     }
                 };
-                handler.postDelayed(r, 1000);
+                handler.postDelayed(r, 5000);
             }
         });
     }

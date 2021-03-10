@@ -43,7 +43,6 @@ import retrofit2.Callback;
 public class AppActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
-
     ConstraintLayout parentView_appActivity;
     SharedPreferences storeObjectShared;
     NotificationManager mNotifyManager;

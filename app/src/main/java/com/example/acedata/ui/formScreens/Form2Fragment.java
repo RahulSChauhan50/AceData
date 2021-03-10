@@ -68,7 +68,7 @@ import retrofit2.Callback;
 
 public class Form2Fragment extends Fragment implements
         FetchAddressTask.OnTaskCompleted {
-    Button btn_next;
+    Button btn_next,btn_back;
     Button button_selectphoto1;
     Button button_selectphoto2;
     Button button_selectphoto3;
@@ -96,6 +96,7 @@ public class Form2Fragment extends Fragment implements
         View form2 = inflater.inflate(R.layout.fragment_form2, container, false);
 
         btn_next = form2.findViewById(R.id.open);
+        btn_back = form2.findViewById(R.id.back);
         button_selectphoto1 = form2.findViewById(R.id.buttonimage1);
         button_selectphoto2 = form2.findViewById(R.id.buttonimage2);
         button_selectphoto3 = form2.findViewById(R.id.buttonimage3);
@@ -169,6 +170,12 @@ public class Form2Fragment extends Fragment implements
                 }
 
                 Log.d("form2", obj.getAddress() + " " + obj.getName() + " " + obj.getMobile_no() + " " + obj.getAdhar());
+            }
+        });
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AppActivity)getActivity()).Add_Form1(view);
             }
         });
     }

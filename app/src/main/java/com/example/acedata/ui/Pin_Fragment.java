@@ -6,9 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,16 +13,13 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.acedata.AppActivity;
 import com.example.acedata.MainActivity;
 import com.example.acedata.R;
-import com.example.acedata.ui.datalist.DatalistFragment;
 
 public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyListener,View.OnFocusChangeListener {
 
@@ -156,7 +150,7 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
                     if(pin.length()>=4){
                         sharedpin=sharedPreferences.getInt("Pinvalue",-1);
                         if(sharedpin!=-1){
-                            Log.d("pin",pin);
+                            //.d("pin",pin);
                             if(sharedpin==Integer.parseInt(pin.trim())){
                                 pin="";
                                 Intent intent=new Intent(getContext(), AppActivity.class);

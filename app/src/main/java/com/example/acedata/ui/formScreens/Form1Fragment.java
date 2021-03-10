@@ -1,6 +1,5 @@
 package com.example.acedata.ui.formScreens;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
@@ -10,18 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import com.example.acedata.AppActivity;
 import com.example.acedata.FormData;
 import com.example.acedata.R;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
 
 public class Form1Fragment extends Fragment {
@@ -52,7 +46,7 @@ public class Form1Fragment extends Fragment {
         //converting string data back to object
         Gson gson = new Gson();
         obj = gson.fromJson(desired_string, FormData.class);
-        Log.d("value of object",obj.getAddress()+obj.getAdhar()+obj.getMobile_no()+obj.getName());
+        //Log.d("value of object",obj.getAddress()+obj.getAdhar()+obj.getMobile_no()+obj.getName());
 
         setValues(obj);
 

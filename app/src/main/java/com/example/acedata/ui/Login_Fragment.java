@@ -18,15 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.acedata.FormData;
 import com.example.acedata.R;
 import com.example.acedata.network.RetrofitClientInstance;
 import com.example.acedata.network.UploadReceiptService;
-import com.example.acedata.recyclerViewAdapter.recyclerviewadapter;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -87,7 +83,7 @@ public class Login_Fragment extends Fragment {
                                 tr.replace(R.id.fragment_container_mainactivity,Pin_Generator.class,null);
                                 tr.commit();
 
-                                Log.d("key",response.body().getKey());
+                                //Log.d("key",response.body().getKey());
                             }
                             else{
                                 Toast.makeText(getActivity(),"Invalid credentials",Toast.LENGTH_SHORT).show();
@@ -97,7 +93,7 @@ public class Login_Fragment extends Fragment {
                         @Override
                         public void onFailure(Call<FormData> call, Throwable t) {
                             progressBar.setVisibility(View.GONE);
-                            Log.d("Faied","SignIn failed "+t.getMessage());
+                            //Log.d("Faied","SignIn failed "+t.getMessage());
                             Toast.makeText(getActivity(),"SignIn Failed....",Toast.LENGTH_SHORT).show();
                         }
                     });

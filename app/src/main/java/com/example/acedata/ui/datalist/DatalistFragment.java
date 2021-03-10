@@ -1,7 +1,9 @@
 package com.example.acedata.ui.datalist;
 
-import android.app.Application;
 import androidx.fragment.app.Fragment;
+
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,13 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.acedata.FormData;
-import com.example.acedata.MainActivity;
 import com.example.acedata.R;
 import com.example.acedata.network.RetrofitClientInstance;
 import com.example.acedata.network.UploadReceiptService;
 import com.example.acedata.recyclerViewAdapter.recyclerviewadapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -31,6 +31,7 @@ import retrofit2.Callback;
 
 public class DatalistFragment extends Fragment {
 
+    SharedPreferences sharedPreferences;
     ProgressBar progressBar;
     RecyclerView recyclerView;
     @Nullable
@@ -39,13 +40,16 @@ public class DatalistFragment extends Fragment {
         View fragmentView=inflater.inflate(R.layout.fragment_datalist,container,false);
         progressBar=fragmentView.findViewById(R.id.progressBar2);
         recyclerView=fragmentView.findViewById(R.id.recyclerview);
+        sharedPreferences=getActivity().getSharedPreferences("login_data", Context.MODE_PRIVATE);
         return fragmentView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        String Token = "Token 9dc7a0c191f9e74cbbd3fd15731a60bb23ee7073";
+        String Token = "Token "+sharedPreferences.getString("Tokenvalue",null);
+
+        //Log.d("datalistfrag","token value= "+Token);
 
         UploadReceiptService service = RetrofitClientInstance.getRetrofitInstance().create(UploadReceiptService.class);
 
@@ -58,16 +62,16 @@ public class DatalistFragment extends Fragment {
 
                if(response.code()==200){
                    List<FormData> posts = response.body();
-                   for ( FormData post : posts) {
-                       String content = "";
-                       content += "name: " + post.getName() + "\n";
-                       content += "Address: " + post.getAddress() + "\n";
-                       content += "adhar: " + post.getAdhar() + "\n";
-                       content += "mobile: " + post.getMobile_no() + "\n\n";
-
-                       Log.d("Content",content);
-
-                   }
+//                   for ( FormData post : posts) {
+//                       String content = "";
+//                       content += "name: " + post.getName() + "\n";
+//                       content += "Address: " + post.getAddress() + "\n";
+//                       content += "adhar: " + post.getAdhar() + "\n";
+//                       content += "mobile: " + post.getMobile_no() + "\n\n";
+//
+//                       Log.d("Content",content);
+//
+//                   }
                    recyclerviewadapter adapter = new recyclerviewadapter(posts, getContext());
                    recyclerView.setAdapter(adapter);
                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -79,7 +83,7 @@ public class DatalistFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<FormData>> call, Throwable t) {
-                Log.d("Faied","Network request failed "+t.getMessage());
+                //Log.d("Faied","Network request failed "+t.getMessage());
                 progressBar.setVisibility(View.GONE);
             }
         });

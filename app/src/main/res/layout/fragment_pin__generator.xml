@@ -227,6 +227,7 @@
        android:backgroundTint="@color/purple_700"
        android:fontFamily="@font/aldrich"
        android:text="Set"
+       android:textColor="@color/white"
        android:textSize="24sp"
        app:cornerRadius="15dp"
        app:layout_constraintEnd_toEndOf="parent"

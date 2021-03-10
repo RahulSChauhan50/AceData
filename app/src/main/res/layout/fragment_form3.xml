@@ -289,6 +289,7 @@
                 android:backgroundTint="@color/teal_200"
                 android:fontFamily="@font/audiowide"
                 android:text="Submit"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:cornerRadius="15dp" />
 

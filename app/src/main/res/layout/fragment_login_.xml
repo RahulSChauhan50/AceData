@@ -61,6 +61,7 @@
             android:backgroundTint="#0504aa"
             android:fontFamily="@font/aladin"
             android:text="Login"
+            android:textColor="@color/white"
             android:textSize="24sp"
             app:cornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"

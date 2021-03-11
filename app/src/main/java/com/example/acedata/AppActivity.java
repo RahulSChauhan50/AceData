@@ -2,15 +2,18 @@ package com.example.acedata;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,18 +26,31 @@ import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.acedata.location.FetchAddressTask;
+import com.example.acedata.location.GpsUtils;
 import com.example.acedata.network.RetrofitClientInstance;
 import com.example.acedata.network.UploadReceiptService;
 import com.example.acedata.ui.datalist.DatalistFragment;
 import com.example.acedata.ui.formScreens.Form1Fragment;
 import com.example.acedata.ui.formScreens.Form2Fragment;
 import com.example.acedata.ui.formScreens.Form3Fragment;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResolvableApiException;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
@@ -59,6 +75,8 @@ public class AppActivity extends AppCompatActivity implements
     Location mLastLocation;
     public String addressLocation = null;
     private FusedLocationProviderClient mFusedLocationClient;
+    private boolean isGPS = false;
+    final int GPS_REQUEST = 1001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +90,9 @@ public class AppActivity extends AppCompatActivity implements
         storeObjectShared = getSharedPreferences("Stored_objects", Context.MODE_PRIVATE);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(AppActivity.this);
+        checkForGPS_function();
         getLocation_function();
+
 
         //https://developer.android.com/training/notify-user/channels
         //https://stuff.mit.edu/afs/sipb/project/android/docs/training/notify-user/display-progress.html
@@ -148,7 +168,8 @@ public class AppActivity extends AppCompatActivity implements
                 startActivity(intent);
                 return true;
             }
-            case R.id.get_my_location:{
+            case R.id.get_my_location: {
+                checkForGPS_function();
                 getLocation_function();
                 return true;
             }
@@ -173,10 +194,31 @@ public class AppActivity extends AppCompatActivity implements
         }
     }
 
+    void checkForGPS_function() {
+
+        new GpsUtils(this).turnGPSOn(new GpsUtils.onGpsListener() {
+            @Override
+            public void gpsStatus(boolean isGPSEnable) {
+                // turn on GPS
+                isGPS = isGPSEnable;
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == GPS_REQUEST) {
+                isGPS = true; // flag maintain before get location
+            }
+        }
+    }
+
     @SuppressLint("MissingPermission")
     void getLocation_function() {
 
-        Toast.makeText(AppActivity.this,"Fetching Location...",Toast.LENGTH_LONG).show();
+        Toast.makeText(AppActivity.this, "Fetching Location...", Toast.LENGTH_LONG).show();
         CancellationTokenSource cts = new CancellationTokenSource();
         mFusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, cts.getToken())
                 .addOnSuccessListener(new OnSuccessListener<Location>() {
@@ -309,7 +351,7 @@ public class AppActivity extends AppCompatActivity implements
 
             /////calling notification////
             mBuilder
-                    .setContentText("Image "+String.valueOf(imageNumber+1)+" upload in progress")
+                    .setContentText("Image " + String.valueOf(imageNumber + 1) + " upload in progress")
                     .setProgress(0, 0, true);
             // Displays the progress bar for the first time.
             mNotifyManager.notify(imageNumber, mBuilder.build());
@@ -337,7 +379,7 @@ public class AppActivity extends AppCompatActivity implements
                         }
 
                         ///stopping notification////
-                        mBuilder.setContentText("Image "+String.valueOf(imageNumber+1)+" upload complete")
+                        mBuilder.setContentText("Image " + String.valueOf(imageNumber + 1) + " upload complete")
                                 // Removes the progress bar
                                 .setProgress(0, 0, false);
                         mNotifyManager.notify(imageNumber, mBuilder.build());
@@ -365,7 +407,7 @@ public class AppActivity extends AppCompatActivity implements
                         // Log.d("Upload error",response.message()+" "+String.valueOf(response.code()));
 
                         ///stopping notification////
-                        mBuilder.setContentText("Image "+String.valueOf(imageNumber+1)+" Upload error")
+                        mBuilder.setContentText("Image " + String.valueOf(imageNumber + 1) + " Upload error")
                                 // Removes the progress bar
                                 .setProgress(0, 0, false);
                         mNotifyManager.notify(1, mBuilder.build());
@@ -397,7 +439,7 @@ public class AppActivity extends AppCompatActivity implements
                     // Log.d("error",t.getMessage());
 
                     ///stopping notification////
-                    mBuilder.setContentText("Image "+String.valueOf(imageNumber+1)+" upload error")
+                    mBuilder.setContentText("Image " + String.valueOf(imageNumber + 1) + " upload error")
                             // Removes the progress bar
                             .setProgress(0, 0, false);
                     mNotifyManager.notify(1, mBuilder.build());

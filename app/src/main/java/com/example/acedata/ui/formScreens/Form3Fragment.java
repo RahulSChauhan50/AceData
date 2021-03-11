@@ -25,6 +25,7 @@ public class Form3Fragment extends Fragment {
     Button btn_submit,btn_back;
     GifImageView gif_layout;
     ScrollView background_scrollView;
+    Handler handler;
     ConstraintLayout constraintLayout;
     @Nullable
     @Override
@@ -51,7 +52,14 @@ public class Form3Fragment extends Fragment {
                 background_scrollView.setVisibility(View.INVISIBLE);
                // constraintLayout.setBackgroundColor(Color.parseColor("#000000"));
                 constraintLayout.setBackgroundResource(R.drawable.side_nav_bar);
-                ((AppActivity)getActivity()).Add_Datalist();
+                handler = new Handler();
+                Runnable r = new Runnable() {
+                    public void run() {
+                        ((AppActivity)getActivity()).Add_Datalist();
+
+                    }
+                };
+                handler.postDelayed(r, 4000);
             }
         });
 

@@ -41,7 +41,7 @@ public class Form1Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle arguments = getArguments();
-        String desired_string = arguments.getString("form1_pass");
+        String desired_string = arguments.getString("object_pass");
 
         //converting string data back to object
         Gson gson = new Gson();
@@ -76,7 +76,7 @@ public class Form1Fragment extends Fragment {
 
                     Form2Fragment form2Fragment=new Form2Fragment();
                     Bundle arguments = new Bundle();
-                    arguments.putString( "form2_pass" , object_pass);
+                    arguments.putString( "object_pass" , object_pass);
                     form2Fragment.setArguments(arguments);
 
                     getActivity().getSupportFragmentManager().beginTransaction()

@@ -21,6 +21,8 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+
+//https://droidbyme.medium.com/android-turn-on-gps-programmatically-d585cf29c1ef
 public class GpsUtils {
     private Context context;
     private SettingsClient mSettingsClient;

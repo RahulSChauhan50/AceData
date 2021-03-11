@@ -13,7 +13,43 @@ public class FormData {
     String image2Uri=null;
     String image3Uri=null;
     String image4Uri=null;
+    String image1Name=null;
+    String image2Name=null;
+    String image3Name=null;
+    String image4Name=null;
     String key;
+
+    public String getImage1Name() {
+        return image1Name;
+    }
+
+    public void setImage1Name(String image1Name) {
+        this.image1Name = image1Name;
+    }
+
+    public String getImage2Name() {
+        return image2Name;
+    }
+
+    public void setImage2Name(String image2Name) {
+        this.image2Name = image2Name;
+    }
+
+    public String getImage3Name() {
+        return image3Name;
+    }
+
+    public void setImage3Name(String image3Name) {
+        this.image3Name = image3Name;
+    }
+
+    public String getImage4Name() {
+        return image4Name;
+    }
+
+    public void setImage4Name(String image4Name) {
+        this.image4Name = image4Name;
+    }
 
     public String getImage1Uri() {
         return image1Uri;

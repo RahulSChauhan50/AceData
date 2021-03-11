@@ -17,7 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.acedata.AppActivity;
+import com.example.acedata.FormData;
 import com.example.acedata.R;
+import com.google.gson.Gson;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -26,7 +28,10 @@ public class Form3Fragment extends Fragment {
     GifImageView gif_layout;
     ScrollView background_scrollView;
     Handler handler;
+    FormData obj;
     ConstraintLayout constraintLayout;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,6 +49,13 @@ public class Form3Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Bundle arguments = getArguments();
+        String desired_string = arguments.getString("object_pass");
+
+        //converting string data back to object
+        Gson gson = new Gson();
+        obj = gson.fromJson(desired_string, FormData.class);
 
         btn_submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +78,20 @@ public class Form3Fragment extends Fragment {
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AppActivity)getActivity()).Add_Form2(view);
+                //((AppActivity)getActivity()).Add_Form2(view);
+
+                Gson gson = new Gson();
+                String object_pass = gson.toJson(obj);
+
+                Form2Fragment form2Fragment=new Form2Fragment();
+                Bundle arguments = new Bundle();
+                arguments.putString( "object_pass" , object_pass);
+                form2Fragment.setArguments(arguments);
+
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .setReorderingAllowed(true)
+                        .replace(R.id.fragment_container_appactivity, form2Fragment,null)
+                        .commit();
             }
         });
     }

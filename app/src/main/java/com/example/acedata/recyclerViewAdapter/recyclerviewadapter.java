@@ -70,7 +70,7 @@ public class recyclerviewadapter extends RecyclerView.Adapter<recyclerviewadapte
 
                 Form1Fragment form1Fragment=new Form1Fragment();
                 Bundle arguments = new Bundle();
-                arguments.putString( "form1_pass" , object_pass);
+                arguments.putString( "object_pass", object_pass);
                 form1Fragment.setArguments(arguments);
 
                 FragmentManager fragmentManager=((AppCompatActivity)context).getSupportFragmentManager();

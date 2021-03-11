@@ -100,22 +100,27 @@ public class Form2Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ////receiving values from form1
         Bundle arguments = getArguments();
-        String desired_string = arguments.getString("form2_pass");
+        String desired_string = arguments.getString("object_pass");
 
         //converting string data back to object
         Gson gson = new Gson();
         obj = gson.fromJson(desired_string, FormData.class);
 
         checkForPreviouslyStoredObjects();
+        setTextViewImageName_function();
 
         button_selectphoto1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (((AppActivity)getActivity()).addressLocation!=null) {
-                    imagenumber = 0;
-                    capture_function();
+                    if (obj.getImage1Uri()==null) {
+                        imagenumber = 0;
+                        capture_function();
+                    } else {
+                        ((AppActivity)getActivity()).uploadData_function(obj,0);
+                    }
                 } else {
-                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -124,10 +129,14 @@ public class Form2Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (((AppActivity)getActivity()).addressLocation!=null) {
-                    imagenumber = 1;
-                    capture_function();
+                    if (obj.getImage2Uri()==null) {
+                        imagenumber = 1;
+                        capture_function();
+                    } else {
+                        ((AppActivity)getActivity()).uploadData_function(obj,1);
+                    }
                 } else {
-                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -135,10 +144,14 @@ public class Form2Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (((AppActivity)getActivity()).addressLocation!=null) {
-                    imagenumber = 2;
-                    capture_function();
+                    if (obj.getImage3Uri()==null) {
+                        imagenumber = 2;
+                        capture_function();
+                    } else {
+                        ((AppActivity)getActivity()).uploadData_function(obj,2);
+                    }
                 } else {
-                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -146,10 +159,14 @@ public class Form2Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if (((AppActivity)getActivity()).addressLocation!=null) {
-                    imagenumber = 3;
-                    capture_function();
+                    if (obj.getImage4Uri()==null) {
+                        imagenumber = 3;
+                        capture_function();
+                    } else {
+                        ((AppActivity)getActivity()).uploadData_function(obj,3);
+                    }
                 } else {
-                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -159,27 +176,69 @@ public class Form2Fragment extends Fragment {
             public void onClick(View view) {
 
                 if(obj.getImage1Uri()!=null && obj.getImage2Uri()!=null && obj.getImage3Uri()!=null && obj.getImage4Uri()!=null){
-                    ((AppActivity)getActivity()).Add_Form3(view);
+                    //((AppActivity)getActivity()).Add_Form3(view);
+
+                    Gson gson = new Gson();
+                    String object_pass = gson.toJson(obj);
+
+                    Form3Fragment form3Fragment=new Form3Fragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putString( "object_pass" , object_pass);
+                    form3Fragment.setArguments(arguments);
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragment_container_appactivity, form3Fragment,null)
+                            .commit();
                 }
                 else {
-                    Toast.makeText(getContext(),"Please select all the images",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Please select all the images",Toast.LENGTH_SHORT).show();
                 }
 
                // Log.d("form2", obj.getAddress() + " " + obj.getName() + " " + obj.getMobile_no() + " " + obj.getAdhar());
             }
         });
+
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (obj.getImage1Uri()!=null && obj.getImage2Uri()!=null && obj.getImage3Uri()!=null && obj.getImage4Uri()!=null) {
-                    ((AppActivity)getActivity()).Add_Form1(view);
+                    //((AppActivity)getActivity()).Add_Form1(view);
+
+                    Gson gson = new Gson();
+                    String object_pass = gson.toJson(obj);
+
+                    Form1Fragment form1Fragment=new Form1Fragment();
+                    Bundle arguments = new Bundle();
+                    arguments.putString( "object_pass" , object_pass);
+                    form1Fragment.setArguments(arguments);
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .setReorderingAllowed(true)
+                            .replace(R.id.fragment_container_appactivity, form1Fragment,null)
+                            .commit();
                 }
                 else {
-                    Toast.makeText(getContext(),"Please select all the images",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Please select all the images",Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
+    }
+
+    void setTextViewImageName_function(){
+        if(obj.getImage1Name()!=null){
+            textView_image1data.setText(obj.getImage1Name());
+        }
+        if(obj.getImage2Uri()!=null){
+            textView_image2data.setText(obj.getImage2Name());
+        }
+        if(obj.getImage3Name()!=null){
+            textView_image3data.setText(obj.getImage3Name());
+        }
+        if(obj.getImage4Name()!=null){
+            textView_image4data.setText(obj.getImage4Name());
+        }
     }
 
     void checkForPreviouslyStoredObjects(){
@@ -190,46 +249,30 @@ public class Form2Fragment extends Fragment {
             Gson gson = new Gson();
             FormData myObj = gson.fromJson(storedObj, FormData.class);
 
-            File newFile;
-            if(myObj.getImage1Uri()!=null){
+            if(myObj.getImage1Uri()!=null && myObj.getImage1Name()!=null){
                 obj.setImage1Uri(myObj.getImage1Uri());
-                try {
-                    newFile=new File(myObj.getImage1Uri());
-                    String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
-                    textView_image1data.setText(filename);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                obj.setImage1Name(myObj.getImage1Name());
+                textView_image1data.setText(myObj.getImage1Name());
+                button_selectphoto1.setText("Re-Upload");
             }
-            if(myObj.getImage2Uri()!=null){
+            if(myObj.getImage2Uri()!=null && myObj.getImage2Name()!=null){
                 obj.setImage2Uri(myObj.getImage2Uri());
-                try {
-                    newFile=new File(myObj.getImage2Uri());
-                    String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
-                    textView_image2data.setText(filename);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                obj.setImage2Name(myObj.getImage2Name());
+                textView_image2data.setText(myObj.getImage2Name());
+                button_selectphoto2.setText("Re-Upload");
+
             }
-            if(myObj.getImage3Uri()!=null){
+            if(myObj.getImage3Uri()!=null && myObj.getImage3Name()!=null){
                 obj.setImage3Uri(myObj.getImage3Uri());
-                try {
-                    newFile=new File(myObj.getImage3Uri());
-                    String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
-                    textView_image3data.setText(filename);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                obj.setImage3Name(myObj.getImage3Name());
+                textView_image3data.setText(myObj.getImage3Name());
+                button_selectphoto3.setText("Re-Upload");
             }
-            if(myObj.getImage4Uri()!=null){
+            if(myObj.getImage4Uri()!=null && myObj.getImage4Name()!=null){
                 obj.setImage4Uri(myObj.getImage4Uri());
-                try {
-                    newFile=new File(myObj.getImage4Uri());
-                    String filename=newFile.getName() + "\n" + String.valueOf(newFile.length() / 1000) + " KB";
-                    textView_image4data.setText(filename);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                obj.setImage4Name(myObj.getImage4Name());
+                textView_image4data.setText(myObj.getImage4Name());
+                button_selectphoto4.setText("Re-Upload");
             }
 
         }
@@ -458,6 +501,7 @@ public class Form2Fragment extends Fragment {
                             @Override
                             public void run() {
                                 if (finalFilename != null) {
+                                    obj.setImage1Name(finalFilename);
                                     textView_image1data.setText(finalFilename);
                                 }
                             }
@@ -475,6 +519,7 @@ public class Form2Fragment extends Fragment {
                             @Override
                             public void run() {
                                 if (finalFilename1 != null) {
+                                    obj.setImage2Name(finalFilename1);
                                     textView_image2data.setText(finalFilename1);
                                 }
                             }
@@ -491,6 +536,7 @@ public class Form2Fragment extends Fragment {
                             @Override
                             public void run() {
                                 if (finalFilename2 != null) {
+                                    obj.setImage3Name(finalFilename2);
                                     textView_image3data.setText(finalFilename2);
                                 }
                             }
@@ -506,6 +552,7 @@ public class Form2Fragment extends Fragment {
                             @Override
                             public void run() {
                                 if (finalFilename3 != null) {
+                                    obj.setImage4Name(finalFilename3);
                                     textView_image4data.setText(finalFilename3);
                                 }
                             }

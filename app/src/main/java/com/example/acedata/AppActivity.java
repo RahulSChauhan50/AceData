@@ -125,28 +125,6 @@ public class AppActivity extends AppCompatActivity implements
 
     }
 
-    public void Add_Form1(View view) {
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(R.id.fragment_container_appactivity, Form1Fragment.class, null)
-                .commit();
-    }
-
-    public void Add_Form2(View view) {
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(R.id.fragment_container_appactivity, Form2Fragment.class, null)
-                .commit();
-    }
-
-    public void Add_Form3(View view) {
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(R.id.fragment_container_appactivity, Form3Fragment.class, null)
-                .commit();
-    }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -414,7 +392,7 @@ public class AppActivity extends AppCompatActivity implements
                         mBuilder.setContentText("Image " + String.valueOf(imageNumber + 1) + " Upload error")
                                 // Removes the progress bar
                                 .setProgress(0, 0, false);
-                        mNotifyManager.notify(1, mBuilder.build());
+                        mNotifyManager.notify(imageNumber, mBuilder.build());
                     }
 
                 }
@@ -446,7 +424,7 @@ public class AppActivity extends AppCompatActivity implements
                     mBuilder.setContentText("Image " + String.valueOf(imageNumber + 1) + " upload error")
                             // Removes the progress bar
                             .setProgress(0, 0, false);
-                    mNotifyManager.notify(1, mBuilder.build());
+                    mNotifyManager.notify(imageNumber, mBuilder.build());
                 }
             });
 

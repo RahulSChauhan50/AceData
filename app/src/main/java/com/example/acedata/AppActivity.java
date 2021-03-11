@@ -117,7 +117,7 @@ public class AppActivity extends AppCompatActivity implements
         }
     }
 
-    public void Add_Datalist(View view) {
+    public void Add_Datalist() {
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.fragment_container_appactivity, DatalistFragment.class, null)
@@ -290,6 +290,7 @@ public class AppActivity extends AppCompatActivity implements
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
                 }
                 case 1: {
                     try {
@@ -305,6 +306,7 @@ public class AppActivity extends AppCompatActivity implements
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
                 }
                 case 2: {
                     try {
@@ -320,6 +322,7 @@ public class AppActivity extends AppCompatActivity implements
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    break;
                 }
                 case 3: {
                     try {
@@ -336,6 +339,7 @@ public class AppActivity extends AppCompatActivity implements
                         e.printStackTrace();
                     }
                 }
+                break;
             }
 
 

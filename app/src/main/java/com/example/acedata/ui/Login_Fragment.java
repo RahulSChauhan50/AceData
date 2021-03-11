@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,7 @@ public class Login_Fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.fragment_login_, container, false);
-        submit_btn = myView.findViewById(R.id.submit);
+        submit_btn = myView.findViewById(R.id.submit_form3);
         edittextusername=myView.findViewById(R.id.textinputedittext_username);
         edittextpassword=myView.findViewById(R.id.textinputedittext_password);
         progressBar=myView.findViewById(R.id.progressBar_signin);

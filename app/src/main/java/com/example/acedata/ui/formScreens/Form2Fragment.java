@@ -278,7 +278,7 @@ public class Form2Fragment extends Fragment {
         );
 
         // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
+        Form2Fragment.this.mCurrentPhotoPath = image.getAbsolutePath();
         return image;
     }
 
@@ -289,7 +289,7 @@ public class Form2Fragment extends Fragment {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
 
-                        new Thread(new watermarkThread(imagenumber, mCurrentPhotoPath,((AppActivity)getActivity()).addressLocation)).start();
+                        new Thread(new watermarkThread(imagenumber, Form2Fragment.this.mCurrentPhotoPath,((AppActivity)getActivity()).addressLocation)).start();
 
                     } else {
                         Toast.makeText(getContext(), "Something Went Wrong !!!", Toast.LENGTH_SHORT).show();
@@ -368,6 +368,16 @@ public class Form2Fragment extends Fragment {
                         dir
                 );
 
+
+                ///////saving compressed image///////
+                try (FileOutputStream out = new FileOutputStream(imagecompress)) {
+                    bmpWithBorder.compress(Bitmap.CompressFormat.JPEG, 50, out);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                /////////////////////////////////
+
                 //getting path of compressed image///////
                 switch (currentImageNumber) {
                     case 0: {
@@ -388,15 +398,6 @@ public class Form2Fragment extends Fragment {
                     }
 
                 }
-
-                ///////saving compressed image///////
-                try (FileOutputStream out = new FileOutputStream(imagecompress)) {
-                    bmpWithBorder.compress(Bitmap.CompressFormat.JPEG, 50, out);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                /////////////////////////////////
 
                 /////fetching file info////
                 File tempCompressedFile = null;

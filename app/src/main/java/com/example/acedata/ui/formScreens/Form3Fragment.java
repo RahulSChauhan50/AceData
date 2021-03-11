@@ -21,14 +21,13 @@ import pl.droidsonroids.gif.GifImageView;
 public class Form3Fragment extends Fragment {
     Button btn_submit,btn_back;
     GifImageView gif_layout;
-    Handler handler;
     ScrollView background_scrollView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View myView =  inflater.inflate(R.layout.fragment_form3,container,false);
 
-        btn_submit = myView.findViewById(R.id.submit);
+        btn_submit = myView.findViewById(R.id.submit_form3);
         btn_back = myView.findViewById(R.id.back_to_form2);
         gif_layout = myView.findViewById(R.id.submit_gif);
         background_scrollView = myView.findViewById(R.id.scrollView2);
@@ -44,14 +43,7 @@ public class Form3Fragment extends Fragment {
             public void onClick(View view) {
                 gif_layout.setVisibility(View.VISIBLE);
                 background_scrollView.setVisibility(View.INVISIBLE);
-                handler = new Handler();
-                Runnable r = new Runnable() {
-                    public void run() {
-                        ((AppActivity)getActivity()).Add_Datalist(view);
-
-                    }
-                };
-                handler.postDelayed(r, 5000);
+                ((AppActivity)getActivity()).Add_Datalist();
             }
         });
 

@@ -163,8 +163,7 @@ public class Form2Fragment extends Fragment implements
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               ((AppActivity)getActivity()).Add_Form1(view);
-
+                ((AppActivity)getActivity()).Add_Form1(view);
             }
         });
     }

@@ -303,7 +303,7 @@
                     android:fontFamily="@font/audiowide"
                     android:text="prev"
                     android:textSize="24sp"
-                    app:cornerRadius="15dp" />
+                    app:cornerRadius="5dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/submit"
@@ -317,7 +317,7 @@
                     android:fontFamily="@font/audiowide"
                     android:text="Submit"
                     android:textSize="24sp"
-                    app:cornerRadius="15dp" />
+                    app:cornerRadius="5dp" />
 
 
             </LinearLayout>

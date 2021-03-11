@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,16 +19,19 @@ import com.example.acedata.R;
 import pl.droidsonroids.gif.GifImageView;
 
 public class Form3Fragment extends Fragment {
-    Button btn_submit;
+    Button btn_submit,btn_back;
     GifImageView gif_layout;
     Handler handler;
+    ScrollView background_scrollView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View myView =  inflater.inflate(R.layout.fragment_form3,container,false);
 
         btn_submit = myView.findViewById(R.id.submit);
+        btn_back = myView.findViewById(R.id.back_to_form2);
         gif_layout = myView.findViewById(R.id.submit_gif);
+        background_scrollView = myView.findViewById(R.id.scrollView2);
         return  myView;
     }
 
@@ -39,7 +43,7 @@ public class Form3Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 gif_layout.setVisibility(View.VISIBLE);
-
+                background_scrollView.setVisibility(View.INVISIBLE);
                 handler = new Handler();
                 Runnable r = new Runnable() {
                     public void run() {
@@ -48,6 +52,13 @@ public class Form3Fragment extends Fragment {
                     }
                 };
                 handler.postDelayed(r, 5000);
+            }
+        });
+
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((AppActivity)getActivity()).Add_Form2(view);
             }
         });
     }

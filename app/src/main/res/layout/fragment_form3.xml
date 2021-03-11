@@ -3,18 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/constraintLayout">
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/submit_gif"
         android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:src="@drawable/animated_check"
+        android:layout_height="210dp"
+        android:src="@drawable/checked_gif"
         android:visibility="invisible"
+        android:scaleType="fitCenter"
+        android:background="@drawable/rounf_for_gif"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <ScrollView
         android:id="@+id/scrollView2"

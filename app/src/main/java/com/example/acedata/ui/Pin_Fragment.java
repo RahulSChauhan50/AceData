@@ -159,7 +159,7 @@ public class Pin_Fragment extends Fragment implements TextWatcher,View.OnKeyList
                                 getActivity().finish();
 
                             }else {
-                                Toast.makeText(getActivity(),"Pin doesn't match!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(),"You entered wrong pin !!",Toast.LENGTH_SHORT).show();
                             }
 
                         }

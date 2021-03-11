@@ -54,8 +54,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Form2Fragment extends Fragment implements
-        FetchAddressTask.OnTaskCompleted {
+public class Form2Fragment extends Fragment {
     Button btn_next,btn_back;
     Button button_selectphoto1;
     Button button_selectphoto2;
@@ -68,11 +67,7 @@ public class Form2Fragment extends Fragment implements
     int imagenumber = -1;
     FormData obj;
 
-    Location mLastLocation;
-    private FusedLocationProviderClient mFusedLocationClient;
-
     SharedPreferences storeObjectShared;
-
 
     String[] sampleimagesinfo;
     String mCurrentPhotoPath;
@@ -96,8 +91,6 @@ public class Form2Fragment extends Fragment implements
 
         storeObjectShared=getActivity().getSharedPreferences("Stored_objects", Context.MODE_PRIVATE);
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-
         sampleimagesinfo = new String[4];
 
         return form2;
@@ -118,43 +111,58 @@ public class Form2Fragment extends Fragment implements
         button_selectphoto1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imagenumber = 0;
-                capture_function();
+                if (((AppActivity)getActivity()).addressLocation!=null) {
+                    imagenumber = 0;
+                    capture_function();
+                } else {
+                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_LONG).show();
+                }
 
             }
         });
         button_selectphoto2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imagenumber = 1;
-                capture_function();
+                if (((AppActivity)getActivity()).addressLocation!=null) {
+                    imagenumber = 1;
+                    capture_function();
+                } else {
+                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_LONG).show();
+                }
             }
         });
         button_selectphoto3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imagenumber = 2;
-                capture_function();
+                if (((AppActivity)getActivity()).addressLocation!=null) {
+                    imagenumber = 2;
+                    capture_function();
+                } else {
+                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_LONG).show();
+                }
             }
         });
         button_selectphoto4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imagenumber = 3;
-                capture_function();
+                if (((AppActivity)getActivity()).addressLocation!=null) {
+                    imagenumber = 3;
+                    capture_function();
+                } else {
+                    Toast.makeText(getContext(),"Location is Null",Toast.LENGTH_LONG).show();
+                }
             }
         });
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                uploadThread thread=new uploadThread();
-//                thread.start();
-
-                ((AppActivity)getActivity()).uploadData_function(obj);
 
                 if(obj.getImage1Uri()!=null && obj.getImage2Uri()!=null && obj.getImage3Uri()!=null && obj.getImage4Uri()!=null){
                     ((AppActivity)getActivity()).Add_Form3(view);
+                }
+                else {
+                    Toast.makeText(getContext(),"Please select all the images",Toast.LENGTH_LONG).show();
                 }
 
                // Log.d("form2", obj.getAddress() + " " + obj.getName() + " " + obj.getMobile_no() + " " + obj.getAdhar());
@@ -163,7 +171,13 @@ public class Form2Fragment extends Fragment implements
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((AppActivity)getActivity()).Add_Form1(view);
+                if (obj.getImage1Uri()!=null && obj.getImage2Uri()!=null && obj.getImage3Uri()!=null && obj.getImage4Uri()!=null) {
+                    ((AppActivity)getActivity()).Add_Form1(view);
+                }
+                else {
+                    Toast.makeText(getContext(),"Please select all the images",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }
@@ -274,55 +288,14 @@ public class Form2Fragment extends Fragment implements
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
-                        getLocation_function();
+
+                        new Thread(new watermarkThread(imagenumber, mCurrentPhotoPath,((AppActivity)getActivity()).addressLocation)).start();
 
                     } else {
                         Toast.makeText(getContext(), "Something Went Wrong !!!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-
-
-    @SuppressLint("MissingPermission")
-    void getLocation_function() {
-
-        final int currentFinalImageNumber=imagenumber;
-        final String currentFinalPhotoPath=mCurrentPhotoPath;
-
-        CancellationTokenSource cts = new CancellationTokenSource();
-        mFusedLocationClient.getCurrentLocation(LocationRequest.PRIORITY_HIGH_ACCURACY, cts.getToken())
-                .addOnSuccessListener(new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        if (location != null) {
-                           // Log.d("coordinates", String.valueOf(location.getLongitude()) + " " + String.valueOf(location.getLatitude()));
-                            mLastLocation = location;
-                            new FetchAddressTask(getContext(),
-                                    Form2Fragment.this,currentFinalImageNumber,currentFinalPhotoPath).execute(location);
-                        } else {
-                           // Log.d("location", "location is null");
-                            Toast.makeText(getContext(),"Failed to fetch location \nCheck if GPS is turned on",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                       // Log.d("failed", e.toString());
-                        Toast.makeText(getContext(),"Failed to fetch location \nCheck if GPS is turned on",Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-    }
-
-
-    @Override
-    public void onTaskCompleted(String result,int currentImageNumber,String currentPhotoPath) {
-        //Log.d("current address", result);
-       // Log.d("imagenumber", String.valueOf(currentImageNumber)+" "+currentPhotoPath);
-
-        new Thread(new watermarkThread(currentImageNumber,currentPhotoPath,result)).start();
-    }
 
     class watermarkThread implements Runnable{
 
@@ -489,6 +462,8 @@ public class Form2Fragment extends Fragment implements
                             }
                         });
 
+                        ((AppActivity)getActivity()).uploadData_function(obj,0);
+
                         //Log.d("obj path",obj.getImage1Uri());
                         break;
                     }
@@ -503,6 +478,8 @@ public class Form2Fragment extends Fragment implements
                                 }
                             }
                         });
+
+                        ((AppActivity)getActivity()).uploadData_function(obj,1);
                         // Log.d("obj path",obj.getImage2Uri());
                         break;
                     }
@@ -517,6 +494,8 @@ public class Form2Fragment extends Fragment implements
                                 }
                             }
                         });
+
+                        ((AppActivity)getActivity()).uploadData_function(obj,2);
                         // Log.d("obj path",obj.getImage3Uri());
                         break;
                     }
@@ -530,6 +509,8 @@ public class Form2Fragment extends Fragment implements
                                 }
                             }
                         });
+
+                        ((AppActivity)getActivity()).uploadData_function(obj,3);
                         //Log.d("obj path",obj.getImage4Uri());
                         break;
                     }

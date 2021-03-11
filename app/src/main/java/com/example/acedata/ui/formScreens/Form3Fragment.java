@@ -59,7 +59,7 @@ public class Form3Fragment extends Fragment {
 
                     }
                 };
-                handler.postDelayed(r, 5000);
+                handler.postDelayed(r, 4000);
             }
         });
 

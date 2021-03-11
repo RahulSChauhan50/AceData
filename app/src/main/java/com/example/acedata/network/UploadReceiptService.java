@@ -35,10 +35,7 @@ public interface UploadReceiptService{
     @PUT
     Call<FormData> putData(
             @Header("Authorization") String Token,
-            @Part MultipartBody.Part file1,
-            @Part MultipartBody.Part file2,
-            @Part MultipartBody.Part file3,
-            @Part MultipartBody.Part file4,
+            @Part MultipartBody.Part file,
             @Part ("name") RequestBody name,
             @Part ("mobile_no") RequestBody mobile_no,
             @Part ("Address") RequestBody Address,

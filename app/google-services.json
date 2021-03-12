@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "724543627415",
+    "project_id": "acedata-5950b",
+    "storage_bucket": "acedata-5950b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724543627415:android:1a5cc8de90a08eb96209d2",
+        "android_client_info": {
+          "package_name": "com.example.acedata"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724543627415-10krmoccik1qek8u69r6hh11p1da11k9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbo5Z3r8xMWl2i5ORUko-_eayfbpaYQbk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724543627415-10krmoccik1qek8u69r6hh11p1da11k9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
